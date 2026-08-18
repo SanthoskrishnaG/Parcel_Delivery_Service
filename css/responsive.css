@@ -1,0 +1,85 @@
+/* Responsive Adjustments for SwiftParcel */
+
+/* Small Devices (Landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    /* Adjust hero typography */
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px) {
+    .py-6 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+/* Large Devices (Desktops, 992px and up) */
+@media (max-width: 991px) {
+    #mainNav {
+        padding: 0.5rem 1rem;
+    }
+    
+    #mainNav .navbar-collapse {
+        background-color: var(--white);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin-top: 1rem;
+    }
+
+    #mainNav .nav-link {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    #mainNav .nav-link::after {
+        display: none;
+    }
+
+    .hero-section {
+        text-align: center;
+    }
+
+    .box-3d {
+        margin-top: 3rem;
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    .badge-1 { right: 0; top: 10%; }
+    .badge-2 { left: 0; bottom: 10%; }
+}
+
+/* Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .hero-section h1 {
+        font-size: 4rem;
+    }
+}
+
+/* Utilities for hiding/showing elements on specific breakpoints */
+@media (max-width: 767.98px) {
+    .tracking-box {
+        flex-direction: column;
+        border-radius: 1rem !important;
+        padding: 1rem !important;
+    }
+    
+    .tracking-box input {
+        margin: 1rem 0 !important;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .tracking-box button {
+        width: 100%;
+    }
+    
+    .tracking-box i {
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+}

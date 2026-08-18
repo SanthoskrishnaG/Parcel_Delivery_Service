@@ -1,0 +1,267 @@
+/* 
+   SwiftParcel - Core Styling
+   Colors: Primary (Blue), Secondary, Dark, Light
+*/
+
+:root {
+    /* Custom Color Palette */
+    --primary-color: #4361ee;
+    --primary-dark: #3a0ca3;
+    --primary-light: #4cc9f0;
+    --secondary-color: #f72585;
+    --dark-bg: #0f172a;
+    --light-bg: #f8fafc;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    
+    /* Font Families */
+    --font-sans: 'Inter', sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-main);
+    background-color: var(--light-bg);
+    overflow-x: hidden;
+}
+
+/* Typography Utilities */
+.font-outfit {
+    font-family: var(--font-heading);
+}
+
+.tracking-widest {
+    letter-spacing: 0.1em;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-light), var(--white));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navbar Customization */
+#mainNav {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    padding: 1rem 0;
+}
+
+#mainNav.navbar-scrolled {
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+#mainNav .nav-link {
+    color: var(--text-main) !important;
+    position: relative;
+}
+
+#mainNav .nav-link:hover, 
+#mainNav .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+#mainNav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+#mainNav .nav-link:hover::after,
+#mainNav .nav-link.active::after {
+    width: 80%;
+}
+
+#mainNav .navbar-brand {
+    color: var(--primary-dark) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.hero-bg-shape {
+    top: -20%;
+    right: -10%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(76,201,240,0.2) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.tracking-box input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Hero Illustration Animations */
+.box-3d {
+    width: 280px;
+    height: 320px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.pulse-ring {
+    position: relative;
+}
+
+.pulse-ring::before, .pulse-ring::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    opacity: 0.2;
+    z-index: -1;
+    animation: pulse 2s infinite;
+}
+
+.pulse-ring::before {
+    width: 120px;
+    height: 120px;
+}
+
+.pulse-ring::after {
+    width: 160px;
+    height: 160px;
+    animation-delay: 0.5s;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
+
+.floating-badge {
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+.badge-1 { top: 15%; right: -15%; animation-delay: 0s; }
+.badge-2 { bottom: 20%; left: -20%; animation-delay: 1.5s; }
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Animations */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.animate-fade-in-left {
+    animation: fadeInLeft 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Features Section */
+.py-6 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.03) !important;
+}
+
+.hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+}
+
+.hover-lift:hover .icon-wrapper {
+    background-color: var(--primary-color) !important;
+    color: var(--white) !important;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+.btn-hover-elevate {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-hover-elevate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.25) !important;
+}
+
+/* Footer */
+.footer-section {
+    background-color: var(--dark-bg);
+}
+
+.hover-text-primary:hover {
+    color: var(--primary-light) !important;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-btn:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white) !important;
+    transform: translateY(-3px);
+}
