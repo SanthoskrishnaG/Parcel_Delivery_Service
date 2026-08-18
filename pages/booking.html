@@ -334,20 +334,44 @@
 
     <!-- Booking Confirmation Modal -->
     <div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 rounded-4 shadow-lg text-center p-4">
-                <div class="modal-body py-5">
-                    <div class="mb-4">
-                        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 rounded-4 shadow-lg p-3">
+                <div class="modal-body py-4" id="receiptContent">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                        <h3 class="fw-bold font-outfit mt-3 mb-1">Booking Successful!</h3>
+                        <p class="text-muted">Your parcel delivery has been successfully scheduled.</p>
                     </div>
-                    <h3 class="fw-bold font-outfit mb-3">Booking Confirmed!</h3>
-                    <p class="text-muted mb-4">Your parcel delivery has been successfully scheduled. Your tracking number is:</p>
-                    <div class="bg-light p-3 rounded-3 mb-4 d-inline-block">
-                        <h4 class="fw-bold text-primary mb-0 font-monospace tracking-widest" id="generatedTrackingNumber">SP-XXXX-XXXX</h4>
+                    
+                    <div class="bg-light p-4 rounded-4 mb-4 text-start border">
+                        <div class="row g-3">
+                            <div class="col-md-6 border-end-md" style="border-right: 1px solid #dee2e6;">
+                                <p class="text-muted small mb-1">Tracking / Parcel ID</p>
+                                <h4 class="fw-bold text-primary font-monospace mb-3 tracking-widest" id="modalParcelId">PDS20260818001</h4>
+                                
+                                <p class="text-muted small mb-1">Delivery Type</p>
+                                <h6 class="fw-bold text-dark mb-3" id="modalDeliveryType">Express Delivery</h6>
+                                
+                                <p class="text-muted small mb-1">Estimated Delivery Date</p>
+                                <h6 class="fw-bold text-dark mb-0" id="modalEstDate">Aug 20, 2026</h6>
+                            </div>
+                            <div class="col-md-6 ps-md-4">
+                                <p class="text-muted small mb-1">Sender</p>
+                                <h6 class="fw-bold text-dark mb-3" id="modalSender">John Doe</h6>
+                                
+                                <p class="text-muted small mb-1">Receiver</p>
+                                <h6 class="fw-bold text-dark mb-3" id="modalReceiver">Jane Smith</h6>
+                                
+                                <p class="text-muted small mb-1">Total Price</p>
+                                <h4 class="fw-bold text-success mb-0" id="modalTotalPrice">$45.50</h4>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2 me-2 fw-semibold" id="btnTrackNow">Track Parcel</button>
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold" onclick="window.location.href='../index.html'">Go to Home</button>
+                    
+                    <div class="text-center mt-4 d-print-none">
+                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2 me-2 mb-2 fw-semibold" id="btnTrackNow">Track Parcel</button>
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 me-2 mb-2 fw-semibold" onclick="window.location.reload()">New Booking</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 mb-2 fw-semibold" onclick="window.print()"><i class="bi bi-printer me-2"></i> Print Receipt</button>
                     </div>
                 </div>
             </div>

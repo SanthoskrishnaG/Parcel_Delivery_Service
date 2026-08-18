@@ -271,3 +271,5 @@ body {
 .radio-card label { cursor: pointer; }
 .custom-checkbox { border: 1px solid transparent; transition: all 0.2s ease; }
 .cursor-pointer { cursor: pointer; }
+
+@media print { body * { visibility: hidden; } #receiptContent, #receiptContent * { visibility: visible; } #receiptContent { position: absolute; left: 0; top: 0; width: 100%; } .d-print-none { display: none !important; } }

@@ -147,30 +147,61 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Form is valid - process booking simulation
+        // Form is valid - process booking simulation
         
-        // Generate a random tracking number
-        const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        const trackingNum = `SP-${randomStr}-${randomNum}`;
+        // Generate a unique parcel ID PDSYYYYMMDDNNN format
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const randomNum = String(Math.floor(Math.random() * 999)).padStart(3, '0');
+        const trackingNum = `PDS${yyyy}${mm}${dd}${randomNum}`;
         
-        document.getElementById('generatedTrackingNumber').textContent = trackingNum;
+        const senderName = document.getElementById('senderName').value;
+        const receiverName = document.getElementById('receiverName').value;
+        const deliveryTypeInput = document.querySelector('input[name="deliveryType"]:checked');
+        const deliveryType = deliveryTypeInput ? deliveryTypeInput.nextElementSibling.querySelector('span').textContent : 'Standard';
         
-        // Store the new tracking number in localStorage so it can be 'tracked' later
-        // Just storing a simple object to simulate a database record
+        // Calculate estimated delivery date
+        let estDate = new Date(today);
+        if (deliveryType === 'Standard') {
+            estDate.setDate(estDate.getDate() + 4);
+        } else if (deliveryType === 'Express') {
+            estDate.setDate(estDate.getDate() + 2);
+        } // Same Day keeps today's date
+        
+        const estDateStr = estDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const totalPrice = document.getElementById('priceTotal').textContent;
+
         const bookingData = {
-            trackingNumber: trackingNum,
+            parcelId: trackingNum,
             status: 'Booked',
-            date: new Date().toLocaleDateString(),
-            sender: document.getElementById('senderName').value,
-            receiver: document.getElementById('receiverName').value,
-            destination: `${document.getElementById('receiverCity').value}, ${document.getElementById('receiverState').value}`
+            date: today.toLocaleDateString(),
+            estDeliveryDate: estDateStr,
+            sender: senderName,
+            receiver: receiverName,
+            destination: `${document.getElementById('receiverCity').value}, ${document.getElementById('receiverState').value}`,
+            deliveryType: deliveryType,
+            totalPrice: totalPrice
         };
         
-        // Fetch existing bookings or create new array
-        let existingBookings = JSON.parse(localStorage.getItem('swiftParcelBookings') || '[]');
-        existingBookings.push(bookingData);
-        localStorage.setItem('swiftParcelBookings', JSON.stringify(existingBookings));
+        // Use storage wrapper
+        if (typeof saveParcel === 'function') {
+            saveParcel(bookingData);
+        } else {
+            let existingBookings = JSON.parse(localStorage.getItem('swiftParcelBookings') || '[]');
+            existingBookings.push(bookingData);
+            localStorage.setItem('swiftParcelBookings', JSON.stringify(existingBookings));
+        }
         
+        // Update Modal UI
+        document.getElementById('modalParcelId').textContent = trackingNum;
+        document.getElementById('modalDeliveryType').textContent = deliveryType;
+        document.getElementById('modalEstDate').textContent = estDateStr;
+        document.getElementById('modalSender').textContent = senderName;
+        document.getElementById('modalReceiver').textContent = receiverName;
+        document.getElementById('modalTotalPrice').textContent = `$${totalPrice}`;
+
         // Show success modal
         const successModal = new bootstrap.Modal(document.getElementById('bookingSuccessModal'));
         successModal.show();
