@@ -3,7 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Navbar Scroll Effect
+    // 1. Navbar Scroll Effect
     const mainNav = document.getElementById('mainNav');
     
     if (mainNav) {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.dispatchEvent(new Event('scroll'));
     }
 
-    // Quick Track Input Enter Key Handler
+    // 2. Quick Track Input Enter Key Handler
     const quickTrackInput = document.getElementById('quickTrackInput');
     if (quickTrackInput) {
         quickTrackInput.addEventListener('keypress', function(e) {
@@ -38,4 +38,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // 3. Dynamic Current Year in Footer
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    // 4. Smooth Scrolling for anchor links (if any)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if(this.getAttribute('href') !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
 });
