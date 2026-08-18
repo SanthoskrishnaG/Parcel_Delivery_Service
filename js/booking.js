@@ -173,14 +173,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const estDateStr = estDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         const totalPrice = document.getElementById('priceTotal').textContent;
 
+        const senderPhone = document.getElementById('senderPhone').value;
+        const receiverPhone = document.getElementById('receiverPhone').value;
+        const parcelType = document.getElementById('parcelType').value;
+        const weight = document.getElementById('parcelWeight').value;
+
         const bookingData = {
             parcelId: trackingNum,
             status: 'Booked',
             date: today.toLocaleDateString(),
             estDeliveryDate: estDateStr,
             sender: senderName,
+            senderPhone: senderPhone,
             receiver: receiverName,
+            receiverPhone: receiverPhone,
             destination: `${document.getElementById('receiverCity').value}, ${document.getElementById('receiverState').value}`,
+            parcelType: parcelType,
+            weight: weight,
             deliveryType: deliveryType,
             totalPrice: totalPrice
         };

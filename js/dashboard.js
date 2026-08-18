@@ -151,13 +151,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const receiver = (p.receiver || '').toLowerCase();
             const destination = (p.destination || '').toLowerCase();
             const status = (p.status || '').toLowerCase();
+            const senderPhone = (p.senderPhone || '').toLowerCase();
+            const receiverPhone = (p.receiverPhone || '').toLowerCase();
             
-            // To simulate phone/city we check receiver and destination strings
+            // Text Search checks ID, Receiver Name, Phone number, City(Destination), Status
             const matchesSearch = !query || 
                                   id.includes(query) || 
                                   receiver.includes(query) || 
                                   destination.includes(query) || 
-                                  status.includes(query);
+                                  status.includes(query) ||
+                                  senderPhone.includes(query) ||
+                                  receiverPhone.includes(query);
                                   
             // Dropdowns
             const matchesStatus = fStatus === 'all' || status.includes(fStatus);
