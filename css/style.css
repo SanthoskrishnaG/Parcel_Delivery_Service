@@ -265,3 +265,9 @@ body {
     color: var(--white) !important;
     transform: translateY(-3px);
 }
+
+/* Additional form custom styles */
+.radio-card { transition: all 0.3s ease; border: 2px solid transparent !important; background-color: var(--light-bg); }
+.radio-card label { cursor: pointer; }
+.custom-checkbox { border: 1px solid transparent; transition: all 0.2s ease; }
+.cursor-pointer { cursor: pointer; }

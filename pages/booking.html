@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Parcel - SwiftParcel</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center font-outfit" href="../index.html">
+                <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm" style="width: 40px; height: 40px;">
+                    <i class="bi bi-box-seam-fill fs-4"></i>
+                </div>
+                SwiftParcel
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="../index.html">Home</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="tracking.html">Track Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link active fw-medium" href="booking.html">Book Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="about.html">About</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 mb-3 mb-lg-0">
+                        <a class="btn btn-outline-light fw-semibold px-4 rounded-pill btn-hover-elevate" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-5 position-relative overflow-hidden">
+        <div class="hero-bg-shape position-absolute"></div>
+        <div class="container py-4 position-relative z-1">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold font-outfit mb-2 animate-fade-in-up">Book a Parcel</h1>
+                    <p class="lead mb-0 opacity-75 animate-fade-in-up" style="animation-delay: 0.1s;">Fill in the details below to schedule your delivery and get an instant quote.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Content -->
+    <div class="container py-5 mt-n5 position-relative z-1">
+        <form id="bookingForm" class="needs-validation" novalidate>
+            <div class="row g-4">
+                
+                <!-- Main Form Column -->
+                <div class="col-lg-8">
+                    
+                    <!-- Sender Information -->
+                    <div class="card border-0 shadow-sm rounded-4 mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                            <h4 class="fw-bold font-outfit text-dark d-flex align-items-center">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-2 d-inline-flex">
+                                    <i class="bi bi-person-up fs-5"></i>
+                                </div>
+                                Sender Information
+                            </h4>
+                            <hr class="border-secondary opacity-25">
+                        </div>
+                        <div class="card-body p-4 pt-2">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="senderName" class="form-label fw-medium text-muted small">Full Name</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="senderName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="senderPhone" class="form-label fw-medium text-muted small">Phone Number</label>
+                                    <input type="tel" class="form-control bg-light border-0 py-2" id="senderPhone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="senderEmail" class="form-label fw-medium text-muted small">Email Address</label>
+                                    <input type="email" class="form-control bg-light border-0 py-2" id="senderEmail" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="senderAddress" class="form-label fw-medium text-muted small">Pickup Address</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="senderAddress" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="senderCity" class="form-label fw-medium text-muted small">City</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2 price-trigger" id="senderCity" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="senderState" class="form-label fw-medium text-muted small">State</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="senderState" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="senderPincode" class="form-label fw-medium text-muted small">Pincode</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="senderPincode" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receiver Information -->
+                    <div class="card border-0 shadow-sm rounded-4 mb-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                            <h4 class="fw-bold font-outfit text-dark d-flex align-items-center">
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle p-2 me-2 d-inline-flex">
+                                    <i class="bi bi-person-down fs-5"></i>
+                                </div>
+                                Receiver Information
+                            </h4>
+                            <hr class="border-secondary opacity-25">
+                        </div>
+                        <div class="card-body p-4 pt-2">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="receiverName" class="form-label fw-medium text-muted small">Full Name</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="receiverName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="receiverPhone" class="form-label fw-medium text-muted small">Phone Number</label>
+                                    <input type="tel" class="form-control bg-light border-0 py-2" id="receiverPhone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="receiverEmail" class="form-label fw-medium text-muted small">Email Address</label>
+                                    <input type="email" class="form-control bg-light border-0 py-2" id="receiverEmail" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="receiverAddress" class="form-label fw-medium text-muted small">Delivery Address</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="receiverAddress" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="receiverCity" class="form-label fw-medium text-muted small">City</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2 price-trigger" id="receiverCity" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="receiverState" class="form-label fw-medium text-muted small">State</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="receiverState" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="receiverPincode" class="form-label fw-medium text-muted small">Pincode</label>
+                                    <input type="text" class="form-control bg-light border-0 py-2" id="receiverPincode" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parcel Information -->
+                    <div class="card border-0 shadow-sm rounded-4 mb-4 animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                            <h4 class="fw-bold font-outfit text-dark d-flex align-items-center">
+                                <div class="bg-info bg-opacity-10 text-info rounded-circle p-2 me-2 d-inline-flex">
+                                    <i class="bi bi-box-seam fs-5"></i>
+                                </div>
+                                Parcel Information
+                            </h4>
+                            <hr class="border-secondary opacity-25">
+                        </div>
+                        <div class="card-body p-4 pt-2">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="parcelType" class="form-label fw-medium text-muted small">Parcel Type</label>
+                                    <select class="form-select bg-light border-0 py-2 price-trigger" id="parcelType" required>
+                                        <option value="" selected disabled>Select Type</option>
+                                        <option value="document">Document</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="clothing">Clothing</option>
+                                        <option value="furniture">Furniture/Bulky</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="parcelWeight" class="form-label fw-medium text-muted small">Weight (kg)</label>
+                                    <input type="number" class="form-control bg-light border-0 py-2 price-trigger" id="parcelWeight" min="0.1" step="0.1" value="1" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="parcelLength" class="form-label fw-medium text-muted small">Length (cm)</label>
+                                    <input type="number" class="form-control bg-light border-0 py-2 price-trigger" id="parcelLength" min="1" value="10" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="parcelWidth" class="form-label fw-medium text-muted small">Width (cm)</label>
+                                    <input type="number" class="form-control bg-light border-0 py-2 price-trigger" id="parcelWidth" min="1" value="10" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="parcelHeight" class="form-label fw-medium text-muted small">Height (cm)</label>
+                                    <input type="number" class="form-control bg-light border-0 py-2 price-trigger" id="parcelHeight" min="1" value="10" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Type & Options -->
+                    <div class="card border-0 shadow-sm rounded-4 mb-4 animate-fade-in-up" style="animation-delay: 0.5s;">
+                        <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                            <h4 class="fw-bold font-outfit text-dark d-flex align-items-center">
+                                <div class="bg-warning bg-opacity-10 text-warning rounded-circle p-2 me-2 d-inline-flex">
+                                    <i class="bi bi-truck fs-5"></i>
+                                </div>
+                                Delivery Preferences
+                            </h4>
+                            <hr class="border-secondary opacity-25">
+                        </div>
+                        <div class="card-body p-4 pt-2">
+                            <div class="row g-4">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-medium text-muted small mb-3">Delivery Type</label>
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="border rounded-3 p-3 text-center cursor-pointer radio-card price-trigger-radio">
+                                                <input class="form-check-input d-none" type="radio" name="deliveryType" id="typeStandard" value="standard" checked>
+                                                <label class="form-check-label w-100 m-0" for="typeStandard">
+                                                    <i class="bi bi-calendar3 fs-3 text-muted d-block mb-2 icon-transition"></i>
+                                                    <span class="fw-bold font-outfit d-block text-dark">Standard</span>
+                                                    <small class="text-muted">3-5 Business Days</small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="border rounded-3 p-3 text-center cursor-pointer radio-card price-trigger-radio">
+                                                <input class="form-check-input d-none" type="radio" name="deliveryType" id="typeExpress" value="express">
+                                                <label class="form-check-label w-100 m-0" for="typeExpress">
+                                                    <i class="bi bi-rocket-takeoff fs-3 text-info d-block mb-2 icon-transition"></i>
+                                                    <span class="fw-bold font-outfit d-block text-dark">Express</span>
+                                                    <small class="text-muted">1-2 Business Days</small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="border rounded-3 p-3 text-center cursor-pointer radio-card price-trigger-radio">
+                                                <input class="form-check-input d-none" type="radio" name="deliveryType" id="typeSameDay" value="sameday">
+                                                <label class="form-check-label w-100 m-0" for="typeSameDay">
+                                                    <i class="bi bi-stopwatch fs-3 text-danger d-block mb-2 icon-transition"></i>
+                                                    <span class="fw-bold font-outfit d-block text-dark">Same Day</span>
+                                                    <small class="text-muted">Guaranteed Today</small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label fw-medium text-muted small mb-3">Additional Options</label>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <div class="form-check custom-checkbox bg-light rounded-pill px-4 py-2 d-inline-flex align-items-center">
+                                            <input class="form-check-input mt-0 me-2 price-trigger-checkbox" type="checkbox" id="optFragile" value="fragile">
+                                            <label class="form-check-label fw-medium text-dark m-0 pt-1" for="optFragile">
+                                                <i class="bi bi-cup-hot text-warning me-1"></i> Fragile
+                                            </label>
+                                        </div>
+                                        <div class="form-check custom-checkbox bg-light rounded-pill px-4 py-2 d-inline-flex align-items-center">
+                                            <input class="form-check-input mt-0 me-2 price-trigger-checkbox" type="checkbox" id="optInsurance" value="insurance">
+                                            <label class="form-check-label fw-medium text-dark m-0 pt-1" for="optInsurance">
+                                                <i class="bi bi-shield-check text-success me-1"></i> Insurance
+                                            </label>
+                                        </div>
+                                        <div class="form-check custom-checkbox bg-light rounded-pill px-4 py-2 d-inline-flex align-items-center">
+                                            <input class="form-check-input mt-0 me-2 price-trigger-checkbox" type="checkbox" id="optCod" value="cod">
+                                            <label class="form-check-label fw-medium text-dark m-0 pt-1" for="optCod">
+                                                <i class="bi bi-cash-coin text-primary me-1"></i> Cash on Delivery
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sticky Price Summary Sidebar -->
+                <div class="col-lg-4 animate-fade-in-left" style="animation-delay: 0.6s;">
+                    <div class="position-sticky top-0" style="padding-top: 90px; z-index: 10;">
+                        <div class="card border-0 shadow-lg rounded-4 bg-white overflow-hidden">
+                            <div class="bg-primary text-white p-4 text-center">
+                                <h4 class="fw-bold font-outfit mb-0">Estimated Price</h4>
+                                <p class="small opacity-75 mb-0">Transparent & final cost</p>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                                    <span class="text-muted fw-medium">Base Price</span>
+                                    <span class="fw-bold text-dark">$<span id="priceBase">15.00</span></span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                                    <span class="text-muted fw-medium">Weight & Dimensions</span>
+                                    <span class="fw-bold text-dark">+$<span id="priceWeight">0.00</span></span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                                    <span class="text-muted fw-medium">Delivery Type</span>
+                                    <span class="fw-bold text-dark">+$<span id="priceDelivery">0.00</span></span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                                    <span class="text-muted fw-medium">Distance/Location</span>
+                                    <span class="fw-bold text-dark">+$<span id="priceLocation">0.00</span></span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4 pb-2 border-bottom">
+                                    <span class="text-muted fw-medium">Additional Options</span>
+                                    <span class="fw-bold text-dark">+$<span id="priceOptions">0.00</span></span>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded-3">
+                                    <span class="fw-bold font-outfit fs-5 text-dark">Total</span>
+                                    <span class="fw-bold font-outfit fs-3 text-primary">$<span id="priceTotal">15.00</span></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm btn-hover-elevate">Confirm Booking</button>
+                                <p class="text-center text-muted small mt-3 mb-0"><i class="bi bi-lock-fill text-success me-1"></i> Secure 256-bit SSL encryption</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg text-center p-4">
+                <div class="modal-body py-5">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                    </div>
+                    <h3 class="fw-bold font-outfit mb-3">Booking Confirmed!</h3>
+                    <p class="text-muted mb-4">Your parcel delivery has been successfully scheduled. Your tracking number is:</p>
+                    <div class="bg-light p-3 rounded-3 mb-4 d-inline-block">
+                        <h4 class="fw-bold text-primary mb-0 font-monospace tracking-widest" id="generatedTrackingNumber">SP-XXXX-XXXX</h4>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2 me-2 fw-semibold" id="btnTrackNow">Track Parcel</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold" onclick="window.location.href='../index.html'">Go to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4 footer-section mt-5 border-top border-secondary border-opacity-25">
+        <div class="container pt-4">
+            <div class="row gy-4">
+                <div class="col-lg-4 pe-lg-5">
+                    <a class="navbar-brand fw-bold d-flex align-items-center text-white mb-4 fs-3 font-outfit" href="../index.html">
+                        <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-box-seam-fill fs-5"></i>
+                        </div>
+                        SwiftParcel
+                    </a>
+                    <p class="text-muted mb-4 pe-lg-4">Delivering happiness to your doorstep. The most reliable and efficient parcel delivery service nationwide with a global reach.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="../index.html" class="text-muted text-decoration-none hover-text-primary transition-all">Home</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-muted text-decoration-none hover-text-primary transition-all">About Us</a></li>
+                        <li class="mb-2"><a href="services.html" class="text-muted text-decoration-none hover-text-primary transition-all">Services</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-muted text-decoration-none hover-text-primary transition-all">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Services</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="booking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Book a Parcel</a></li>
+                        <li class="mb-2"><a href="tracking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Track Parcel</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-primary transition-all">Shipping Rates</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-primary transition-all">Business Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Contact Info</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-3 d-flex align-items-start"><i class="bi bi-geo-alt text-primary me-3 fs-5 mt-1"></i> <span>123 Logistics Avenue, Tech District, NY 10001, USA</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-telephone text-primary me-3 fs-5"></i> <span>+1 (800) 123-4567</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-envelope text-primary me-3 fs-5"></i> <span>support@swiftparcel.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25 mt-5 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0 small">&copy; <span id="currentYear"></span> SwiftParcel. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <a href="#" class="text-muted text-decoration-none me-3 small hover-text-primary">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none small hover-text-primary">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/booking.js"></script>
+</body>
+</html>
