@@ -215,12 +215,20 @@
                     <div class="mb-3">
                         <i class="bi bi-inbox text-muted opacity-50" style="font-size: 4rem;"></i>
                     </div>
-                    <h5 class="fw-bold text-dark">No Parcels Found</h5>
+                    <h5 class="fw-bold text-dark">No parcels found.</h5>
                     <p class="text-muted mb-4">You haven't booked any parcels yet, or no results match your filters.</p>
-                    <button class="btn btn-outline-primary rounded-pill px-4" onclick="document.getElementById('searchParcels').value=''; document.getElementById('filterStatus').value='all'; document.getElementById('filterDeliveryType').value='all'; document.dispatchEvent(new Event('input'));">Clear Filters</button>
+                    <a href="booking.html" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm mb-2">Book Your First Parcel</a>
+                    <br>
+                    <button class="btn btn-outline-secondary rounded-pill px-4 mt-2" onclick="document.getElementById('searchParcels').value=''; document.getElementById('filterStatus').value='all'; document.getElementById('filterDeliveryType').value='all'; document.getElementById('filterDate').value='all'; document.getElementById('filterPrice').value='all'; document.getElementById('sortParcels').value='newest'; document.dispatchEvent(new Event('input'));">Clear Filters</button>
                 </div>
             </div>
         </div>
+        </div>
+    </div>
+
+    <!-- Hidden Print Area -->
+    <div id="dashboardPrintArea" class="d-none d-print-block">
+        <!-- populated by JS -->
     </div>
 
     <!-- View Modal -->

@@ -314,8 +314,75 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.action-print').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Simple workaround for printing a single row nicely
-                window.print();
+                const id = this.getAttribute('data-id');
+                const p = getParcelById(id);
+                if (!p) return;
+
+                document.getElementById('dashboardPrintArea').innerHTML = `
+                    <div style="font-family: 'Inter', sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; color: #333;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <h1 style="margin: 0; font-family: 'Outfit', sans-serif; color: #4361ee;">SwiftParcel</h1>
+                            <p style="margin: 5px 0 0 0; color: #6c757d;">Official Delivery Receipt</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+                            <div>
+                                <p style="margin: 0 0 5px 0; color: #6c757d; font-size: 14px;">Parcel ID / Tracking No.</p>
+                                <h3 style="margin: 0; font-family: monospace;">${p.parcelId || p.trackingNumber}</h3>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="margin: 0 0 5px 0; color: #6c757d; font-size: 14px;">Booking Date</p>
+                                <h4 style="margin: 0;">${p.date || 'N/A'}</h4>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                            <div style="width: 48%;">
+                                <h4 style="border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Sender</h4>
+                                <p style="margin: 0; font-weight: 500;">${p.sender || 'N/A'}</p>
+                            </div>
+                            <div style="width: 48%;">
+                                <h4 style="border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Receiver</h4>
+                                <p style="margin: 0; font-weight: 500;">${p.receiver || 'N/A'}</p>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; color: #555;">${p.destination || 'N/A'}</p>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                            <h4 style="margin-top: 0; border-bottom: 1px solid #dee2e6; padding-bottom: 10px; margin-bottom: 15px;">Parcel Information</h4>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; color: #6c757d;">Parcel Type</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: 500; text-transform: capitalize;">${p.parcelType || 'Standard Package'}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; color: #6c757d;">Weight</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: 500;">${p.weight || '-'} kg</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; color: #6c757d;">Delivery Type</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: 500;">${p.deliveryType || 'Standard'}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; color: #6c757d;">Expected Delivery Date</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: 500;">${p.estDeliveryDate || 'N/A'}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #4361ee; padding: 20px; border-radius: 8px; background-color: rgba(67, 97, 238, 0.05);">
+                            <h3 style="margin: 0; color: #333;">Total Paid</h3>
+                            <h2 style="margin: 0; color: #198754;">${p.totalPrice || '-'}</h2>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 40px; font-size: 12px; color: #adb5bd;">Thank you for choosing SwiftParcel. For support, contact 1-800-SWIFT.</p>
+                    </div>
+                `;
+                
+                // Allow the DOM to update before printing
+                setTimeout(() => {
+                    window.print();
+                }, 100);
             });
         });
 
