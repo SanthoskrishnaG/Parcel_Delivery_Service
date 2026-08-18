@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterDeliveryType = document.getElementById('filterDeliveryType');
     const filterDate = document.getElementById('filterDate');
     const filterPrice = document.getElementById('filterPrice');
+    const sortParcels = document.getElementById('sortParcels');
 
     // Modals
     const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
@@ -188,6 +189,36 @@ document.addEventListener('DOMContentLoaded', function() {
             return matchesSearch && matchesStatus && matchesDelivery && matchesDate && matchesPrice;
         });
 
+        // Sorting
+        const sortVal = sortParcels ? sortParcels.value : 'newest';
+        filtered.sort((a, b) => {
+            if (sortVal === 'newest') {
+                return new Date(b.date || 0) - new Date(a.date || 0);
+            } else if (sortVal === 'oldest') {
+                return new Date(a.date || 0) - new Date(b.date || 0);
+            } else if (sortVal === 'price-asc') {
+                const pa = parseFloat((a.totalPrice || '0').replace(/[^0-9.-]+/g,""));
+                const pb = parseFloat((b.totalPrice || '0').replace(/[^0-9.-]+/g,""));
+                return pa - pb;
+            } else if (sortVal === 'price-desc') {
+                const pa = parseFloat((a.totalPrice || '0').replace(/[^0-9.-]+/g,""));
+                const pb = parseFloat((b.totalPrice || '0').replace(/[^0-9.-]+/g,""));
+                return pb - pa;
+            } else if (sortVal === 'weight-asc') {
+                return parseFloat(a.weight || 0) - parseFloat(b.weight || 0);
+            } else if (sortVal === 'weight-desc') {
+                return parseFloat(b.weight || 0) - parseFloat(a.weight || 0);
+            } else if (sortVal === 'id-asc') {
+                return (a.parcelId || '').localeCompare(b.parcelId || '');
+            } else if (sortVal === 'id-desc') {
+                return (b.parcelId || '').localeCompare(a.parcelId || '');
+            }
+            return 0;
+        });
+
+        // Reverse here so that renderTable's native reverse() puts it in our exact sorted order
+        filtered.reverse();
+
         renderTable(filtered);
     }
 
@@ -197,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
     filterDeliveryType.addEventListener('change', applyFiltersAndRender);
     filterDate.addEventListener('change', applyFiltersAndRender);
     filterPrice.addEventListener('change', applyFiltersAndRender);
+    if (sortParcels) sortParcels.addEventListener('change', applyFiltersAndRender);
 
     /**
      * Attach click events to the action dropdown items dynamically
@@ -211,27 +243,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!p) return;
 
                 document.getElementById('viewModalContent').innerHTML = `
-                    <div class="bg-light p-3 rounded-3 mb-3 text-center">
-                        <h4 class="fw-bold text-primary font-monospace mb-0">${p.parcelId || p.trackingNumber}</h4>
-                        <span class="badge ${getStatusBadgeClass(p.status)} mt-2">${p.status || 'Booked'}</span>
+                    <div class="row g-4">
+                        <div class="col-12 text-center mb-2">
+                            <h4 class="fw-bold text-primary font-monospace mb-0">${p.parcelId || p.trackingNumber}</h4>
+                            <span class="badge ${getStatusBadgeClass(p.status)} mt-2">${p.status || 'Booked'}</span>
+                        </div>
+                        <div class="col-md-6 border-end-md" style="border-right: 1px solid #dee2e6;">
+                            <h6 class="fw-bold font-outfit text-dark border-bottom pb-2 mb-3"><i class="bi bi-person-up text-primary me-2"></i>Sender</h6>
+                            <p class="mb-1 text-muted small">Name: <span class="fw-medium text-dark">${p.sender || 'N/A'}</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold font-outfit text-dark border-bottom pb-2 mb-3"><i class="bi bi-person-down text-success me-2"></i>Receiver</h6>
+                            <p class="mb-1 text-muted small">Name: <span class="fw-medium text-dark">${p.receiver || 'N/A'}</span></p>
+                            <p class="mb-1 text-muted small">Destination: <span class="fw-medium text-dark">${p.destination || 'N/A'}</span></p>
+                        </div>
+                        <div class="col-md-6 border-end-md" style="border-right: 1px solid #dee2e6;">
+                            <h6 class="fw-bold font-outfit text-dark border-bottom pb-2 mb-3"><i class="bi bi-box-seam text-info me-2"></i>Parcel</h6>
+                            <p class="mb-1 text-muted small">Type: <span class="fw-medium text-dark text-capitalize">${p.parcelType || 'Standard'}</span></p>
+                            <p class="mb-1 text-muted small">Weight: <span class="fw-medium text-dark">${p.weight || '-'} kg</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold font-outfit text-dark border-bottom pb-2 mb-3"><i class="bi bi-truck text-warning me-2"></i>Delivery</h6>
+                            <p class="mb-1 text-muted small">Type: <span class="fw-medium text-dark">${p.deliveryType || 'Standard'}</span></p>
+                            <p class="mb-1 text-muted small">Booking Date: <span class="fw-medium text-dark">${p.date || 'N/A'}</span></p>
+                            <p class="mb-1 text-muted small">Expected: <span class="fw-medium text-dark">${p.estDeliveryDate || 'N/A'}</span></p>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <div class="bg-light p-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold font-outfit text-dark mb-0"><i class="bi bi-credit-card text-secondary me-2"></i>Payment Details</h6>
+                                <span class="fw-bold text-success fs-5">${p.totalPrice || '-'}</span>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-transparent px-0 d-flex justify-content-between">
-                            <span class="text-muted">Sender:</span> <span class="fw-medium">${p.sender || 'N/A'}</span>
-                        </li>
-                        <li class="list-group-item bg-transparent px-0 d-flex justify-content-between">
-                            <span class="text-muted">Receiver:</span> <span class="fw-medium">${p.receiver || 'N/A'}</span>
-                        </li>
-                        <li class="list-group-item bg-transparent px-0 d-flex justify-content-between">
-                            <span class="text-muted">Destination:</span> <span class="fw-medium">${p.destination || 'N/A'}</span>
-                        </li>
-                        <li class="list-group-item bg-transparent px-0 d-flex justify-content-between">
-                            <span class="text-muted">Delivery Type:</span> <span class="fw-medium">${p.deliveryType || 'Standard'}</span>
-                        </li>
-                        <li class="list-group-item bg-transparent px-0 d-flex justify-content-between border-bottom-0">
-                            <span class="text-muted">Price:</span> <span class="fw-bold text-success">${p.totalPrice || '-'}</span>
-                        </li>
-                    </ul>
                 `;
                 
                 document.getElementById('viewBtnTrack').onclick = () => {
