@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Parcel - SwiftParcel</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center font-outfit" href="../index.html">
+                <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm" style="width: 40px; height: 40px;">
+                    <i class="bi bi-box-seam-fill fs-4"></i>
+                </div>
+                SwiftParcel
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="../index.html">Home</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link active fw-medium" href="tracking.html">Track Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="booking.html">Book Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="about.html">About</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 mb-3 mb-lg-0">
+                        <a class="btn btn-outline-light fw-semibold px-4 rounded-pill btn-hover-elevate" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-5 position-relative overflow-hidden">
+        <div class="hero-bg-shape position-absolute"></div>
+        <div class="container py-5 position-relative z-1">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold font-outfit mb-3 animate-fade-in-up">Track Your Parcel</h1>
+                    <p class="lead opacity-75 mb-5 animate-fade-in-up" style="animation-delay: 0.1s;">Enter your tracking number below to get real-time updates on your shipment's journey.</p>
+                    
+                    <form id="trackingForm" class="tracking-box bg-white p-2 rounded-pill shadow-lg d-flex align-items-center mx-auto animate-fade-in-up" style="animation-delay: 0.2s; max-width: 600px;">
+                        <i class="bi bi-geo-alt-fill text-primary ms-3 fs-4"></i>
+                        <input type="text" id="trackingInput" class="form-control border-0 shadow-none bg-transparent ms-2 fw-bold text-dark fs-5 text-uppercase" placeholder="e.g. PDS20260818001" required>
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm">Track</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message Area -->
+    <div class="container mt-5 d-none" id="errorContainer">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="alert alert-danger d-flex align-items-center p-4 rounded-4 border-0 shadow-sm" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill fs-3 me-3"></i>
+                    <div>
+                        <h5 class="fw-bold font-outfit mb-1">Parcel Not Found</h5>
+                        <p class="mb-0 small">We couldn't find a parcel with that tracking number. Please check the number and try again.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tracking Results Area -->
+    <div class="container py-5 mt-2 d-none" id="trackingResults">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                <!-- Summary Card -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden animate-fade-in-up">
+                    <div class="bg-dark text-white p-4 d-flex flex-wrap justify-content-between align-items-center">
+                        <div>
+                            <p class="text-white-50 small mb-1 tracking-widest text-uppercase fw-bold">Tracking Number</p>
+                            <h2 class="font-outfit fw-bold font-monospace mb-0" id="resParcelId">PDS00000000000</h2>
+                        </div>
+                        <div class="text-end mt-3 mt-md-0">
+                            <span class="badge bg-success px-3 py-2 rounded-pill fs-6" id="resStatusBadge"><i class="bi bi-box-seam me-1"></i> In Transit</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 p-md-5">
+                        <div class="row g-4">
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold">Sender</p>
+                                <h6 class="fw-bold text-dark mb-0" id="resSender">Sender Name</h6>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold">Receiver</p>
+                                <h6 class="fw-bold text-dark mb-0" id="resReceiver">Receiver Name</h6>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold">Booking Date</p>
+                                <h6 class="fw-bold text-dark mb-0" id="resBookingDate">Aug 18, 2026</h6>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold text-primary">Expected Delivery</p>
+                                <h6 class="fw-bold text-primary mb-0" id="resEstDate">Aug 20, 2026</h6>
+                            </div>
+                            
+                            <div class="col-12 mt-4">
+                                <hr class="border-secondary opacity-10">
+                            </div>
+
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold">Parcel Type</p>
+                                <h6 class="fw-bold text-dark mb-0 text-capitalize" id="resType">Electronics</h6>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <p class="text-muted small mb-1 fw-semibold">Delivery Type</p>
+                                <h6 class="fw-bold text-dark mb-0" id="resDeliveryType">Express</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted small mb-1 fw-semibold">Destination</p>
+                                <h6 class="fw-bold text-dark mb-0" id="resDestination">City, State</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Card -->
+                <div class="card border-0 shadow-sm rounded-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4 p-md-5 pb-md-0">
+                        <h4 class="fw-bold font-outfit text-dark mb-0">Delivery Status</h4>
+                        <hr class="border-secondary opacity-25 mt-4">
+                    </div>
+                    <div class="card-body p-4 p-md-5 pt-0">
+                        
+                        <!-- Tracking Timeline -->
+                        <div class="tracking-timeline mt-4" id="timelineContainer">
+                            <!-- Populated by JS -->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4 footer-section mt-5 border-top border-secondary border-opacity-25">
+        <div class="container pt-4">
+            <div class="row gy-4">
+                <div class="col-lg-4 pe-lg-5">
+                    <a class="navbar-brand fw-bold d-flex align-items-center text-white mb-4 fs-3 font-outfit" href="../index.html">
+                        <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-box-seam-fill fs-5"></i>
+                        </div>
+                        SwiftParcel
+                    </a>
+                    <p class="text-muted mb-4 pe-lg-4">Delivering happiness to your doorstep. The most reliable and efficient parcel delivery service nationwide with a global reach.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="../index.html" class="text-muted text-decoration-none hover-text-primary transition-all">Home</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-muted text-decoration-none hover-text-primary transition-all">About Us</a></li>
+                        <li class="mb-2"><a href="services.html" class="text-muted text-decoration-none hover-text-primary transition-all">Services</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-muted text-decoration-none hover-text-primary transition-all">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Services</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="booking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Book a Parcel</a></li>
+                        <li class="mb-2"><a href="tracking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Track Parcel</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Contact Info</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-3 d-flex align-items-start"><i class="bi bi-geo-alt text-primary me-3 fs-5 mt-1"></i> <span>123 Logistics Avenue, Tech District, NY 10001, USA</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-telephone text-primary me-3 fs-5"></i> <span>+1 (800) 123-4567</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-envelope text-primary me-3 fs-5"></i> <span>support@swiftparcel.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25 mt-5 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0 small">&copy; <span id="currentYear"></span> SwiftParcel. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/tracking.js"></script>
+</body>
+</html>

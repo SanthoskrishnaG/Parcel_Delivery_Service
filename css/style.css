@@ -273,3 +273,9 @@ body {
 .cursor-pointer { cursor: pointer; }
 
 @media print { body * { visibility: hidden; } #receiptContent, #receiptContent * { visibility: visible; } #receiptContent { position: absolute; left: 0; top: 0; width: 100%; } .d-print-none { display: none !important; } }
+
+/* Tracking Timeline Specifics */
+.timeline-step::before { content: ''; position: absolute; left: 23px; top: 48px; bottom: -1rem; width: 2px; background-color: #dee2e6; z-index: 1; }
+.timeline-step.completed::before { background-color: var(--bs-success); }
+.timeline-step.active::before { background-color: #dee2e6; }
+.timeline-step:last-child::before { display: none; }
