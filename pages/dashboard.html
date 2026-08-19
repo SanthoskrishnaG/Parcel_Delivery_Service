@@ -38,7 +38,7 @@
                 </div>
                 SwiftParcel
             </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="bi bi-list fs-1"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -47,7 +47,7 @@
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="tracking.html">Track Parcel</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="booking.html">Book Parcel</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode"></a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" role="button"></a></li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
                     </li>
@@ -255,12 +255,12 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control bg-light border-start-0" id="searchParcels" placeholder="Search ID, Receiver, City, Phone...">
+                            <input type="text" class="form-control bg-light border-start-0" id="searchParcels" placeholder="Search ID, Receiver, City, Phone..." aria-label="Search parcels">
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
-                            <select class="form-select w-auto bg-light border-0" id="filterStatus">
+                            <select class="form-select w-auto bg-light border-0" id="filterStatus" aria-label="Filter by status">
                                 <option value="all">All Statuses</option>
                                 <option value="Booked">Booked</option>
                                 <option value="In Transit">In Transit</option>
@@ -268,13 +268,13 @@
                                 <option value="Delivered">Delivered</option>
                                 <option value="Cancelled">Cancelled</option>
                             </select>
-                            <select class="form-select w-auto bg-light border-0" id="filterDeliveryType">
+                            <select class="form-select w-auto bg-light border-0" id="filterDeliveryType" aria-label="Filter by delivery type">
                                 <option value="all">All Delivery Types</option>
                                 <option value="Standard">Standard</option>
                                 <option value="Express">Express</option>
                                 <option value="Same Day">Same Day</option>
                             </select>
-                            <select class="form-select w-auto bg-light border-0" id="sortParcels">
+                            <select class="form-select w-auto bg-light border-0" id="sortParcels" aria-label="Sort parcels">
                                 <option value="newest">Sort: Newest First</option>
                                 <option value="oldest">Sort: Oldest First</option>
                                 <option value="price-asc">Price: Low to High</option>
@@ -284,13 +284,13 @@
                                 <option value="id-asc">ID: A-Z</option>
                                 <option value="id-desc">ID: Z-A</option>
                             </select>
-                            <select class="form-select w-auto bg-light border-0" id="filterDate">
+                            <select class="form-select w-auto bg-light border-0" id="filterDate" aria-label="Filter by date">
                                 <option value="all">Any Date</option>
                                 <option value="today">Today</option>
                                 <option value="week">Past 7 Days</option>
                                 <option value="month">Past 30 Days</option>
                             </select>
-                            <select class="form-select w-auto bg-light border-0" id="filterPrice">
+                            <select class="form-select w-auto bg-light border-0" id="filterPrice" aria-label="Filter by price range">
                                 <option value="all">Any Price</option>
                                 <option value="low">Under $50</option>
                                 <option value="medium">$50 - $100</option>

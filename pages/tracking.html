@@ -38,7 +38,7 @@
                 </div>
                 SwiftParcel
             </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="bi bi-list fs-1"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -49,7 +49,7 @@
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="booking.html">Book Parcel</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="about.html">About</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="contact.html">Contact</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode"></a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" role="button"></a></li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
                     </li>
@@ -72,7 +72,7 @@
                     
                     <form id="trackingForm" class="tracking-box bg-white p-2 rounded-pill shadow-lg d-flex align-items-center mx-auto animate-fade-in-up" style="animation-delay: 0.2s; max-width: 600px;">
                         <i class="bi bi-geo-alt-fill text-primary ms-3 fs-4"></i>
-                        <input type="text" id="trackingInput" class="form-control border-0 shadow-none bg-transparent ms-2 fw-bold text-dark fs-5 text-uppercase" placeholder="e.g. PDS20260818001" required>
+                        <input type="text" id="trackingInput" aria-label="Enter tracking number" class="form-control border-0 shadow-none bg-transparent ms-2 fw-bold text-dark fs-5 text-uppercase" placeholder="e.g. PDS20260818001" required>
                         <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm">Track</button>
                     </form>
                 </div>

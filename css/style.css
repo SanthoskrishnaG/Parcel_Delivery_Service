@@ -279,3 +279,9 @@ body {
 .timeline-step.completed::before { background-color: var(--bs-success); }
 .timeline-step.active::before { background-color: #dee2e6; }
 .timeline-step:last-child::before { display: none; }
+
+/* Accessibility Focus States */
+*:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}
