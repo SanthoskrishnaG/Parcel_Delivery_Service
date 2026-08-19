@@ -85,9 +85,28 @@ function renderAssignmentPanel() {
     shortageAlert.classList.add('d-none');
     
     let optionsHtml = '';
+    let validVehicles = 0;
+    
     availableVehicles.forEach(v => {
-        optionsHtml += `<option value="${v.id}">${v.make} (${v.type}) - ${v.plate}</option>`;
+        // Only show vehicles with enough capacity for the parcel weight
+        const pWeight = parcel.parcelWeight || 0;
+        if (v.capacity >= pWeight) {
+            optionsHtml += `<option value="${v.id}">${v.id} (${v.type}) - ${v.registrationNumber} [Capacity: ${v.capacity}kg]</option>`;
+            validVehicles++;
+        }
     });
+    
+    if (validVehicles === 0) {
+        panel.innerHTML = `
+            <div class="text-center text-danger p-4">
+                <i class="bi bi-x-circle fs-1 mb-2"></i>
+                <h5>Cannot Assign Parcel</h5>
+                <p>No available vehicles have enough capacity (${parcel.parcelWeight || 0}kg) for this parcel.</p>
+            </div>
+        `;
+        shortageAlert.classList.remove('d-none');
+        return;
+    }
     
     panel.innerHTML = `
         <div class="text-start">
@@ -120,7 +139,7 @@ function renderAssignmentPanel() {
         // Update Vehicle
         window.updateVehicle(vId, {
             status: 'In Delivery',
-            assignedParcel: selectedParcelId
+            currentParcel: selectedParcelId
         });
         
         if(window.showNotification) window.showNotification('Assignment Successful', `Parcel ${selectedParcelId} assigned to Vehicle ${vId}.`, 'success');

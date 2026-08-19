@@ -242,11 +242,12 @@ window.deleteVehicle = function(id) {
 
 window.generateDemoVehicles = function() {
     const demoVehicles = [
-        { id: 'VAN-001', type: 'Van', make: 'Ford Transit', plate: 'SW-101', status: 'Available', owner: 'Owned' },
-        { id: 'VAN-002', type: 'Van', make: 'Mercedes Sprinter', plate: 'SW-102', status: 'In Delivery', owner: 'Owned', assignedParcel: 'PDS10002' },
-        { id: 'BIKE-001', type: 'Bike', make: 'Honda CB', plate: 'SW-B01', status: 'Available', owner: 'Owned' },
-        { id: 'BIKE-002', type: 'Bike', make: 'Yamaha FZ', plate: 'SW-B02', status: 'Maintenance', owner: 'Owned' },
-        { id: 'TRUCK-001', type: 'Truck', make: 'Isuzu NPR', plate: 'SW-T01', status: 'Available', owner: 'Owned' }
+        { id: 'BIKE-001', registrationNumber: 'TN-38-BK-0001', type: 'Bike', capacity: 20, status: 'Available', ownership: 'Company', driver: 'John Doe', currentParcel: null, rentalId: null },
+        { id: 'BIKE-002', registrationNumber: 'TN-38-BK-0002', type: 'Bike', capacity: 20, status: 'Available', ownership: 'Company', driver: 'Jane Smith', currentParcel: null, rentalId: null },
+        { id: 'SCOOTER-001', registrationNumber: 'TN-38-SC-0001', type: 'Scooter', capacity: 30, status: 'Available', ownership: 'Company', driver: 'Mike Ross', currentParcel: null, rentalId: null },
+        { id: 'VAN-001', registrationNumber: 'TN-38-VN-0001', type: 'Van', capacity: 500, status: 'Available', ownership: 'Company', driver: 'Harvey Specter', currentParcel: null, rentalId: null },
+        { id: 'VAN-002', registrationNumber: 'TN-38-VN-0002', type: 'Van', capacity: 500, status: 'In Delivery', ownership: 'Company', driver: 'Louis Litt', currentParcel: 'PDS10002', rentalId: null },
+        { id: 'TRUCK-001', registrationNumber: 'TN-38-TR-0001', type: 'Truck', capacity: 5000, status: 'Maintenance', ownership: 'Company', driver: null, currentParcel: null, rentalId: null }
     ];
     let vehicles = window.getVehicles();
     if (vehicles.length === 0) {

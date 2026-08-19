@@ -104,10 +104,13 @@ window.openRentalModal = function(index) {
         const newVehicle = {
             id: randomId,
             type: vehicle.type,
-            make: vehicle.make,
-            plate: randomPlate,
+            registrationNumber: randomPlate,
+            capacity: vehicle.type === 'Van' ? 500 : 5000,
             status: 'Available',
-            owner: 'Rented'
+            ownership: 'Rented',
+            driver: 'Hired Driver',
+            currentParcel: null,
+            rentalId: 'RNT-' + Math.floor(Math.random() * 90000 + 10000)
         };
         
         window.saveVehicle(newVehicle);
