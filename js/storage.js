@@ -242,12 +242,12 @@ window.deleteVehicle = function(id) {
 
 window.generateDemoVehicles = function() {
     const demoVehicles = [
-        { id: 'BIKE-001', registrationNumber: 'TN-38-BK-0001', type: 'Bike', capacity: 20, status: 'Available', ownership: 'Company', driver: 'John Doe', currentParcel: null, rentalId: null },
-        { id: 'BIKE-002', registrationNumber: 'TN-38-BK-0002', type: 'Bike', capacity: 20, status: 'Available', ownership: 'Company', driver: 'Jane Smith', currentParcel: null, rentalId: null },
-        { id: 'SCOOTER-001', registrationNumber: 'TN-38-SC-0001', type: 'Scooter', capacity: 30, status: 'Available', ownership: 'Company', driver: 'Mike Ross', currentParcel: null, rentalId: null },
-        { id: 'VAN-001', registrationNumber: 'TN-38-VN-0001', type: 'Van', capacity: 500, status: 'Available', ownership: 'Company', driver: 'Harvey Specter', currentParcel: null, rentalId: null },
-        { id: 'VAN-002', registrationNumber: 'TN-38-VN-0002', type: 'Van', capacity: 500, status: 'In Delivery', ownership: 'Company', driver: 'Louis Litt', currentParcel: 'PDS10002', rentalId: null },
-        { id: 'TRUCK-001', registrationNumber: 'TN-38-TR-0001', type: 'Truck', capacity: 5000, status: 'Maintenance', ownership: 'Company', driver: null, currentParcel: null, rentalId: null }
+        { id: 'BIKE-001', registrationNumber: 'TN-38-BK-0001', type: 'Bike', capacity: 20, status: 'AVAILABLE', ownership: 'Company', driver: 'John Doe', currentParcel: null, rentalId: null },
+        { id: 'BIKE-002', registrationNumber: 'TN-38-BK-0002', type: 'Bike', capacity: 20, status: 'AVAILABLE', ownership: 'Company', driver: 'Jane Smith', currentParcel: null, rentalId: null },
+        { id: 'SCOOTER-001', registrationNumber: 'TN-38-SC-0001', type: 'Scooter', capacity: 30, status: 'AVAILABLE', ownership: 'Company', driver: 'Mike Ross', currentParcel: null, rentalId: null },
+        { id: 'VAN-001', registrationNumber: 'TN-38-VN-0001', type: 'Van', capacity: 500, status: 'AVAILABLE', ownership: 'Company', driver: 'Harvey Specter', currentParcel: null, rentalId: null },
+        { id: 'VAN-002', registrationNumber: 'TN-38-VN-0002', type: 'Van', capacity: 500, status: 'IN_DELIVERY', ownership: 'Company', driver: 'Louis Litt', currentParcel: 'PDS10002', rentalId: null },
+        { id: 'TRUCK-001', registrationNumber: 'TN-38-TR-0001', type: 'Truck', capacity: 5000, status: 'MAINTENANCE', ownership: 'Company', driver: null, currentParcel: null, rentalId: null }
     ];
     let vehicles = window.getVehicles();
     if (vehicles.length === 0) {

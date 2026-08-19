@@ -106,7 +106,7 @@ window.openRentalModal = function(index) {
             type: vehicle.type,
             registrationNumber: randomPlate,
             capacity: vehicle.type === 'Van' ? 500 : 5000,
-            status: 'Available',
+            status: 'AVAILABLE',
             ownership: 'Rented',
             driver: 'Hired Driver',
             currentParcel: null,

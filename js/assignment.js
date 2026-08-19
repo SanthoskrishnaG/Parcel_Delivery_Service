@@ -68,7 +68,7 @@ function renderAssignmentPanel() {
     
     const parcel = window.getParcelById(selectedParcelId);
     const vehicles = window.getVehicles() || [];
-    const availableVehicles = vehicles.filter(v => v.status === 'Available');
+    const availableVehicles = vehicles.filter(v => v.status === 'AVAILABLE');
     
     if (availableVehicles.length === 0) {
         panel.innerHTML = `
@@ -84,14 +84,26 @@ function renderAssignmentPanel() {
     
     shortageAlert.classList.add('d-none');
     
-    let optionsHtml = '';
+    let availableVehiclesHtml = '';
     let validVehicles = 0;
+    const pWeight = parcel.parcelWeight || 0;
     
     availableVehicles.forEach(v => {
         // Only show vehicles with enough capacity for the parcel weight
-        const pWeight = parcel.parcelWeight || 0;
         if (v.capacity >= pWeight) {
-            optionsHtml += `<option value="${v.id}">${v.id} (${v.type}) - ${v.registrationNumber} [Capacity: ${v.capacity}kg]</option>`;
+            availableVehiclesHtml += `
+                <div class="card mb-3 border border-secondary border-opacity-25 shadow-sm rounded-3">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="fw-bold mb-0">${v.id}</h6>
+                            <span class="badge bg-success rounded-pill">Available</span>
+                        </div>
+                        <p class="small text-muted mb-1">${v.type}</p>
+                        <p class="small text-muted mb-3">Capacity: ${v.capacity} kg</p>
+                        <button class="btn btn-primary btn-sm w-100 fw-semibold rounded-pill" onclick="assignVehicleToParcel('${v.id}')">Assign Vehicle</button>
+                    </div>
+                </div>
+            `;
             validVehicles++;
         }
     });
@@ -101,7 +113,7 @@ function renderAssignmentPanel() {
             <div class="text-center text-danger p-4">
                 <i class="bi bi-x-circle fs-1 mb-2"></i>
                 <h5>Cannot Assign Parcel</h5>
-                <p>No available vehicles have enough capacity (${parcel.parcelWeight || 0}kg) for this parcel.</p>
+                <p>No available vehicles have enough capacity (${pWeight}kg) for this parcel.</p>
             </div>
         `;
         shortageAlert.classList.remove('d-none');
@@ -111,46 +123,55 @@ function renderAssignmentPanel() {
     panel.innerHTML = `
         <div class="text-start">
             <h5 class="fw-bold mb-3 border-bottom pb-2">Assign Vehicle</h5>
-            <p class="small fw-semibold mb-1">Selected Parcel:</p>
-            <p class="text-muted mb-4 border rounded p-2 bg-light">#${parcel.id || parcel.parcelId} - ${parcel.deliveryType}</p>
             
-            <form id="assignForm">
-                <div class="mb-4">
-                    <label class="form-label small fw-semibold">Available Vehicles</label>
-                    <select class="form-select rounded-3" id="vehicleSelect" required>
-                        ${optionsHtml}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-pill fw-semibold">Confirm Assignment</button>
-            </form>
+            <div class="bg-light p-3 rounded-3 mb-4 border">
+                <p class="small text-muted mb-1">Parcel ID:</p>
+                <p class="fw-bold mb-2">${parcel.id || parcel.parcelId}</p>
+                
+                <p class="small text-muted mb-1">Receiver:</p>
+                <p class="fw-bold mb-2">${parcel.receiverName || 'Unknown'}</p>
+                
+                <p class="small text-muted mb-1">Parcel Weight:</p>
+                <p class="fw-bold mb-2">${pWeight} kg</p>
+                
+                <p class="small text-muted mb-1 text-primary">Required Vehicle Capacity:</p>
+                <p class="fw-bold mb-0 text-primary">${pWeight} kg</p>
+            </div>
+            
+            <h6 class="fw-bold mb-3">Available Vehicles</h6>
+            <div style="max-height: 400px; overflow-y: auto;" class="pe-2">
+                ${availableVehiclesHtml}
+            </div>
         </div>
     `;
-    
-    document.getElementById('assignForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const vId = document.getElementById('vehicleSelect').value;
-        
-        // Update Parcel
-        window.updateParcel(selectedParcelId, {
-            assignedVehicleId: vId,
-            status: 'In Transit'
-        });
-        
-        // Update Vehicle
-        window.updateVehicle(vId, {
-            status: 'In Delivery',
-            currentParcel: selectedParcelId
-        });
-        
-        if(window.showNotification) window.showNotification('Assignment Successful', `Parcel ${selectedParcelId} assigned to Vehicle ${vId}.`, 'success');
-        
-        selectedParcelId = null;
-        renderPendingParcels();
-        document.getElementById('assignmentPanel').innerHTML = `
-            <div class="text-muted p-5">
-                <i class="bi bi-box-seam fs-1 mb-3 d-block text-secondary"></i>
-                <p>Select a parcel from the list to assign a vehicle.</p>
-            </div>
-        `;
-    });
 }
+
+window.assignVehicleToParcel = function(vId) {
+    if (!selectedParcelId) return;
+    
+    // Update Parcel
+    window.updateParcel(selectedParcelId, {
+        assignedVehicleId: vId,
+        status: 'Vehicle assigned'
+    });
+    
+    const vehicle = window.getVehicles().find(v => v.id === vId);
+    
+    // Update Vehicle
+    window.updateVehicle(vId, {
+        status: 'ASSIGNED',
+        currentParcel: selectedParcelId,
+        driver: vehicle.driver || 'Assigned'
+    });
+    
+    if(window.showNotification) window.showNotification('Assignment Successful', `Parcel ${selectedParcelId} assigned to Vehicle ${vId}.`, 'success');
+    
+    selectedParcelId = null;
+    renderPendingParcels();
+    document.getElementById('assignmentPanel').innerHTML = `
+        <div class="text-muted p-5">
+            <i class="bi bi-box-seam fs-1 mb-3 d-block text-secondary"></i>
+            <p>Select a parcel from the list to assign a vehicle.</p>
+        </div>
+    `;
+};
