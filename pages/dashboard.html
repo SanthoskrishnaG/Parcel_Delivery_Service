@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard - SwiftParcel</title>
+    <!-- Dark Mode Init -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('swiftParcelTheme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +47,7 @@
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="tracking.html">Track Parcel</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="booking.html">Book Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode"></a></li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
                     </li>
@@ -127,6 +135,97 @@
                         <div>
                             <p class="text-muted small mb-0 fw-medium">Cancelled</p>
                             <h3 class="fw-bold mb-0 text-dark" id="statCancelled">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Analytics -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold font-outfit text-dark mb-0">Delivery Analytics</h5>
+                    </div>
+                    <div class="card-body p-4 pt-3">
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted small fw-medium">Standard Delivery</span>
+                                <span class="text-dark small fw-bold" id="pctStandard">0%</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-primary" id="barStandard" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted small fw-medium">Express Delivery</span>
+                                <span class="text-dark small fw-bold" id="pctExpress">0%</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-warning" id="barExpress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted small fw-medium">Same Day Delivery</span>
+                                <span class="text-dark small fw-bold" id="pctSameDay">0%</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-danger" id="barSameDay" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <hr class="border-secondary opacity-25 my-4">
+                        <div class="row text-center">
+                            <div class="col-6 border-end">
+                                <p class="text-muted small mb-1">Avg Weight</p>
+                                <h4 class="fw-bold text-dark mb-0"><span id="statAvgWeight">0</span> <small class="fs-6">kg</small></h4>
+                            </div>
+                            <div class="col-6">
+                                <p class="text-muted small mb-1">Total Parcels Booked</p>
+                                <h4 class="fw-bold text-dark mb-0" id="statMonthlyBookings">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold font-outfit text-dark mb-0">Revenue Summary</h5>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-center">
+                        <div class="text-center mb-4 pb-3 border-bottom">
+                            <p class="text-muted mb-1 fw-medium">Total Revenue Generated</p>
+                            <h2 class="fw-bold text-success mb-0" style="font-size: 2.5rem;" id="statTotalRevenue">$0.00</h2>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="bg-light rounded-3 p-3 text-center">
+                                    <p class="text-muted small mb-1">Avg Delivery Price</p>
+                                    <h5 class="fw-bold text-dark mb-0" id="statAvgPrice">$0.00</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-light rounded-3 p-3 text-center">
+                                    <p class="text-muted small mb-1">Express Revenue</p>
+                                    <h5 class="fw-bold text-warning mb-0" id="statExpressRev">$0.00</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-light rounded-3 p-3 text-center">
+                                    <p class="text-muted small mb-1">Standard Revenue</p>
+                                    <h5 class="fw-bold text-primary mb-0" id="statStandardRev">$0.00</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-light rounded-3 p-3 text-center">
+                                    <p class="text-muted small mb-1">Same-Day Revenue</p>
+                                    <h5 class="fw-bold text-danger mb-0" id="statSameDayRev">$0.00</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

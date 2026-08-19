@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const allParcels = getParcels();
         
         updateSummaryCards(allParcels);
-        applyFiltersAndRender(allParcels);
+        calculateAnalytics(allParcels);
+        applyFiltersAndRender();
     }
 
     /**
@@ -62,6 +63,75 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('statTransit').textContent = transit;
         document.getElementById('statDelivered').textContent = delivered;
         document.getElementById('statCancelled').textContent = cancelled;
+    }
+
+    /**
+     * Calculate and update Delivery Analytics and Revenue Summary
+     */
+    function calculateAnalytics(parcels) {
+        if (!document.getElementById('statTotalRevenue')) return; // Check if DOM elements exist
+
+        let stdCount = 0;
+        let expCount = 0;
+        let sameCount = 0;
+        
+        let stdRev = 0;
+        let expRev = 0;
+        let sameRev = 0;
+        
+        let totalWeight = 0;
+        let weightCount = 0;
+
+        parcels.forEach(p => {
+            const type = (p.deliveryType || 'Standard').toLowerCase();
+            const price = parseFloat((p.totalPrice || '$0').replace('$', '')) || 0;
+            
+            if (type.includes('express')) {
+                expCount++;
+                expRev += price;
+            } else if (type.includes('same')) {
+                sameCount++;
+                sameRev += price;
+            } else {
+                stdCount++;
+                stdRev += price;
+            }
+
+            if (p.weight && !isNaN(p.weight)) {
+                totalWeight += parseFloat(p.weight);
+                weightCount++;
+            }
+        });
+
+        const totalParcels = parcels.length || 1; // Prevent division by zero
+        
+        // Percentages for Progress Bars
+        const pctStd = Math.round((stdCount / totalParcels) * 100);
+        const pctExp = Math.round((expCount / totalParcels) * 100);
+        const pctSame = Math.round((sameCount / totalParcels) * 100);
+
+        document.getElementById('pctStandard').textContent = pctStd + '%';
+        document.getElementById('pctExpress').textContent = pctExp + '%';
+        document.getElementById('pctSameDay').textContent = pctSame + '%';
+
+        document.getElementById('barStandard').style.width = pctStd + '%';
+        document.getElementById('barExpress').style.width = pctExp + '%';
+        document.getElementById('barSameDay').style.width = pctSame + '%';
+
+        // Additional Stats
+        const avgWeight = weightCount > 0 ? (totalWeight / weightCount).toFixed(1) : 0;
+        document.getElementById('statAvgWeight').textContent = avgWeight;
+        document.getElementById('statMonthlyBookings').textContent = parcels.length;
+
+        // Revenue
+        const totalRev = stdRev + expRev + sameRev;
+        const avgPrice = parcels.length > 0 ? (totalRev / parcels.length) : 0;
+
+        document.getElementById('statTotalRevenue').textContent = '$' + totalRev.toFixed(2);
+        document.getElementById('statAvgPrice').textContent = '$' + avgPrice.toFixed(2);
+        document.getElementById('statStandardRev').textContent = '$' + stdRev.toFixed(2);
+        document.getElementById('statExpressRev').textContent = '$' + expRev.toFixed(2);
+        document.getElementById('statSameDayRev').textContent = '$' + sameRev.toFixed(2);
     }
 
     /**

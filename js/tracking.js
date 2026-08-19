@@ -36,21 +36,25 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * Build the vertical timeline HTML based on current status index
      */
-    function buildTimeline(currentIndex, bookingDateStr) {
+    function buildTimeline(parcel) {
         timelineContainer.innerHTML = '';
+        
+        const history = parcel.history || [];
+        const currentStatus = parcel.status || 'Booked';
+        let currentIndex = getStatusIndex(currentStatus);
         
         // Ensure index is valid
         currentIndex = Math.max(0, Math.min(currentIndex, TIMELINE_STEPS.length - 1));
 
         TIMELINE_STEPS.forEach((step, index) => {
-            const isCompleted = index < currentIndex;
+            const isCompleted = index <= currentIndex;
             const isActive = index === currentIndex;
             const isPending = index > currentIndex;
             
             let statusClass = '';
             let iconClass = 'bg-light text-muted';
             
-            if (isCompleted) {
+            if (isCompleted && !isActive) {
                 statusClass = 'completed';
                 iconClass = 'bg-success text-white border-success';
             } else if (isActive) {
@@ -59,6 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 statusClass = 'pending';
                 iconClass = 'bg-white text-muted border-light border-3';
+            }
+
+            // Find history entry for this step
+            let hEntry = history.find(h => getStatusIndex(h.status) === index);
+            
+            let timeText = '';
+            let stepDesc = step.desc;
+            if (hEntry) {
+                timeText = `<small class="text-muted d-block mt-1"><i class="bi bi-clock me-1"></i> ${hEntry.date}, ${hEntry.time}</small>`;
+                if (hEntry.desc) stepDesc = hEntry.desc;
+            } else if (isCompleted) {
+                // Fallback for old data without history
+                timeText = `<small class="text-muted d-block mt-1"><i class="bi bi-clock me-1"></i> ${parcel.date || 'Updated recently'}</small>`;
             }
 
             // Create step HTML
@@ -71,8 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="timeline-content ms-4 pb-4 w-100">
                     <h5 class="fw-bold font-outfit mb-1 ${isActive ? 'text-primary' : (isCompleted ? 'text-success' : 'text-muted')}">${step.label}</h5>
-                    <p class="text-muted small mb-0">${step.desc}</p>
-                    ${(isCompleted || isActive) ? `<small class="text-muted d-block mt-1"><i class="bi bi-clock me-1"></i> ${index === 0 ? bookingDateStr : 'Updated recently'}</small>` : ''}
+                    <p class="text-muted small mb-0">${stepDesc}</p>
+                    ${timeText}
                 </div>
             `;
             
@@ -105,16 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentStatus = parcel.status || 'Booked';
         const badge = document.getElementById('resStatusBadge');
         
-        // If it was just booked, let's randomly simulate progress if it's not "Delivered"
-        // This is a front-end simulation trick so the portfolio looks alive
         let statusIndex = getStatusIndex(currentStatus);
-        
-        // For portfolio demonstration, if it's "Booked", let's randomly bump it to 'In Transit' 
-        // to show off the timeline if they track it right after booking
-        if (statusIndex === 0 && Math.random() > 0.5) {
-            statusIndex = 3; // In transit
-        }
-        
         const finalStatus = TIMELINE_STEPS[statusIndex].label;
 
         // Update badge UI
@@ -128,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Build Timeline
-        buildTimeline(statusIndex, parcel.date);
+        buildTimeline(parcel);
         
         // Smooth scroll to results
         trackingResults.scrollIntoView({ behavior: 'smooth', block: 'start' });

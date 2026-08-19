@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwiftParcel - Professional Parcel Delivery Service</title>
+    <!-- Dark Mode Init -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('swiftParcelTheme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,6 +60,9 @@
                     </li>
                     <li class="nav-item mx-1">
                         <a class="nav-link fw-medium" href="pages/contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode"></a>
                     </li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="pages/booking.html">Book a Delivery</a>
