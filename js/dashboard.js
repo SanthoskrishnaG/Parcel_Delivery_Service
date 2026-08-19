@@ -32,7 +32,85 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateSummaryCards(allParcels);
         calculateAnalytics(allParcels);
+        renderRecentActivity(allParcels);
         applyFiltersAndRender();
+    }
+
+    /**
+     * Parse history across all parcels and render newest 10 activities
+     */
+    function renderRecentActivity(parcels) {
+        const listContainer = document.getElementById('recentActivityList');
+        if (!listContainer) return;
+
+        let allActivities = [];
+
+        parcels.forEach(p => {
+            const id = p.parcelId || p.trackingNumber || 'N/A';
+            if (p.history && p.history.length > 0) {
+                p.history.forEach(h => {
+                    // Try to parse the date and time strings. e.g. "Aug 19, 2026", "9:00 AM"
+                    const dateStr = h.date + ' ' + h.time;
+                    let timestamp = new Date(dateStr).getTime();
+                    if (isNaN(timestamp)) {
+                        timestamp = 0; // Fallback for bad data
+                    }
+                    allActivities.push({
+                        parcelId: id,
+                        status: h.status,
+                        desc: h.desc,
+                        dateStr: dateStr,
+                        timestamp: timestamp
+                    });
+                });
+            } else {
+                // Fallback for old parcels without history
+                let timestamp = new Date(p.date || '').getTime();
+                if (isNaN(timestamp)) timestamp = 0;
+                allActivities.push({
+                    parcelId: id,
+                    status: p.status || 'Booked',
+                    desc: 'Activity recorded.',
+                    dateStr: p.date || 'N/A',
+                    timestamp: timestamp
+                });
+            }
+        });
+
+        // Sort by newest first
+        allActivities.sort((a, b) => b.timestamp - a.timestamp);
+
+        // Take top 10
+        const recent = allActivities.slice(0, 10);
+
+        listContainer.innerHTML = '';
+        if (recent.length === 0) {
+            listContainer.innerHTML = '<div class="list-group-item p-4 text-center text-muted border-0"><small>No recent activity.</small></div>';
+            return;
+        }
+
+        recent.forEach(act => {
+            let icon = 'bi-check-circle-fill text-success';
+            if (act.status.toLowerCase() === 'booked') icon = 'bi-plus-circle-fill text-primary';
+            else if (act.status.toLowerCase().includes('cancel') || act.status.toLowerCase().includes('delete')) icon = 'bi-x-circle-fill text-danger';
+            else icon = 'bi-arrow-right-circle-fill text-info';
+
+            const item = document.createElement('div');
+            item.className = 'list-group-item list-group-item-action p-3 border-bottom d-flex align-items-center animate-fade-in-up';
+            item.innerHTML = `
+                <div class="me-3">
+                    <i class="bi ${icon} fs-4"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <strong class="mb-0 font-outfit text-dark">${act.parcelId} - ${act.status}</strong>
+                        <small class="text-muted"><i class="bi bi-clock me-1"></i>${act.dateStr}</small>
+                    </div>
+                    <p class="mb-0 text-muted small">${act.desc}</p>
+                </div>
+            `;
+            listContainer.appendChild(item);
+        });
     }
 
     /**
@@ -186,14 +264,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
-                            <li><a class="dropdown-item py-2 action-view" href="#" data-id="${id}"><i class="bi bi-eye text-primary me-2"></i> View</a></li>
-                            <li><a class="dropdown-item py-2" href="tracking.html" onclick="sessionStorage.setItem('quickTrackQuery', '${id}')"><i class="bi bi-geo-alt text-info me-2"></i> Track</a></li>
-                            <li><a class="dropdown-item py-2 action-advance fw-medium text-success" href="#" data-id="${id}"><i class="bi bi-arrow-right-circle text-success me-2"></i> Advance Status</a></li>
+                            <li><a class="dropdown-item py-2 action-view" href="#" data-id="${id}" data-bs-toggle="tooltip" title="View details"><i class="bi bi-eye text-primary me-2"></i> View</a></li>
+                            <li><a class="dropdown-item py-2" href="tracking.html" onclick="sessionStorage.setItem('quickTrackQuery', '${id}')" data-bs-toggle="tooltip" title="Track package"><i class="bi bi-geo-alt text-info me-2"></i> Track</a></li>
+                            <li><a class="dropdown-item py-2 action-advance fw-medium text-success" href="#" data-id="${id}" data-bs-toggle="tooltip" title="Move to next stage"><i class="bi bi-arrow-right-circle text-success me-2"></i> Advance Status</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 action-edit" href="#" data-id="${id}"><i class="bi bi-pencil text-warning me-2"></i> Edit Status</a></li>
-                            <li><a class="dropdown-item py-2 action-print" href="#" data-id="${id}"><i class="bi bi-printer text-secondary me-2"></i> Print</a></li>
+                            <li><a class="dropdown-item py-2 action-edit" href="#" data-id="${id}" data-bs-toggle="tooltip" title="Modify parcel details"><i class="bi bi-pencil text-warning me-2"></i> Edit Status</a></li>
+                            <li><a class="dropdown-item py-2 action-print" href="#" data-id="${id}" data-bs-toggle="tooltip" title="Print receipt"><i class="bi bi-printer text-secondary me-2"></i> Print</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 text-danger action-delete" href="#" data-id="${id}"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                            <li><a class="dropdown-item py-2 text-danger action-delete" href="#" data-id="${id}" data-bs-toggle="tooltip" title="Permanently delete"><i class="bi bi-trash me-2"></i> Delete</a></li>
                         </ul>
                     </div>
                 </td>
@@ -202,6 +280,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         attachActionListeners();
+        
+        // Reinitialize tooltips for dynamically created elements
+        if (typeof bootstrap !== 'undefined') {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                // Check if already initialized to avoid duplication
+                const instance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                if (!instance) return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        }
     }
 
     /**
