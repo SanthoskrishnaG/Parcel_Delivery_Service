@@ -109,6 +109,26 @@ function renderAssignmentPanel() {
     });
     
     if (validVehicles === 0) {
+        // Smart Rental Recommendation
+        const rentals = window.getRentals().filter(r => r.availability === 'Available' && r.capacity >= pWeight);
+        rentals.sort((a, b) => a.capacity - b.capacity); // Sort ascending by capacity
+        const recommendedRental = rentals.length > 0 ? rentals[0] : null;
+        
+        let recommendationHtml = '';
+        if (recommendedRental) {
+            recommendationHtml = `
+                <div class="card bg-primary bg-opacity-10 border-primary border-opacity-25 shadow-sm rounded-3 mt-4 text-start">
+                    <div class="card-body p-4">
+                        <p class="text-primary fw-bold small mb-3 text-uppercase"><i class="bi bi-star-fill me-2"></i>Recommended Rental Vehicle</p>
+                        <h5 class="fw-bold mb-1">${recommendedRental.type}</h5>
+                        <p class="text-muted small mb-1">Capacity: ${recommendedRental.capacity} kg</p>
+                        <p class="text-muted small mb-3">Daily Rate: ₹${recommendedRental.dailyRate}</p>
+                        <button class="btn btn-primary w-100 rounded-pill fw-semibold" onclick="openRentalModal('${recommendedRental.rentalId}')">Hire Recommended Vehicle</button>
+                    </div>
+                </div>
+            `;
+        }
+
         panel.innerHTML = `
             <div class="card border-danger border-opacity-25 shadow-sm rounded-4 mb-4">
                 <div class="card-body p-5 text-center">
@@ -117,7 +137,7 @@ function renderAssignmentPanel() {
                     <p class="text-muted mb-4 px-md-4">There are currently no available company vehicles<br>with sufficient capacity for this delivery.</p>
                     
                     <div class="row justify-content-center mb-4 text-start">
-                        <div class="col-sm-8 col-md-6">
+                        <div class="col-sm-10 col-md-8">
                             <div class="bg-light p-3 rounded-3 border">
                                 <p class="small text-muted mb-1">Parcel Weight:</p>
                                 <p class="fw-bold mb-2">${pWeight} kg</p>
@@ -128,6 +148,7 @@ function renderAssignmentPanel() {
                                 <p class="small text-muted mb-1">Available Company Vehicles:</p>
                                 <p class="fw-bold mb-0">0</p>
                             </div>
+                            ${recommendationHtml}
                         </div>
                     </div>
                     

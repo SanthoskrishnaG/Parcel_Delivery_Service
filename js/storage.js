@@ -289,5 +289,16 @@ window.generateDemoRentals = function() {
 window.generateDemoVehicles();
 window.generateDemoRentals();
 
-// Generate demo vehicles automatically for simulation
-window.generateDemoVehicles();
+// 6. Rental Transactions Storage
+const RENTAL_TRANSACTIONS_KEY = 'swiftParcelRentalTransactions';
+
+window.getRentalTransactions = function() {
+    return JSON.parse(localStorage.getItem(RENTAL_TRANSACTIONS_KEY) || '[]');
+};
+
+window.saveRentalTransaction = function(transaction) {
+    const transactions = window.getRentalTransactions();
+    transactions.push(transaction);
+    localStorage.setItem(RENTAL_TRANSACTIONS_KEY, JSON.stringify(transactions));
+    return true;
+};

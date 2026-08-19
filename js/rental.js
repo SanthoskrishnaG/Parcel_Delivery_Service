@@ -73,9 +73,15 @@ window.openRentalModal = function(rentalId) {
                             </div>
                         </div>
                         <form id="rentalForm">
-                            <div class="mb-3">
-                                <label class="form-label small fw-semibold text-muted">Rental Duration (Days)</label>
-                                <input type="number" class="form-control rounded-3" id="rentalDays" value="1" min="1" max="30" required>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label small fw-semibold text-muted">Start Date</label>
+                                    <input type="date" class="form-control rounded-3" id="rentalStartDate" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small fw-semibold text-muted">End Date</label>
+                                    <input type="date" class="form-control rounded-3" id="rentalEndDate" required>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded-3 mb-4 border">
                                 <span class="fw-medium">Total Cost:</span>
@@ -96,14 +102,38 @@ window.openRentalModal = function(rentalId) {
     
     const rentalModal = new bootstrap.Modal(document.getElementById('rentalModal'));
     
-    const daysInput = document.getElementById('rentalDays');
-    daysInput.addEventListener('input', (e) => {
-        let days = parseInt(e.target.value) || 1;
+    const startDateInput = document.getElementById('rentalStartDate');
+    const endDateInput = document.getElementById('rentalEndDate');
+    
+    // Default to today and tomorrow
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    startDateInput.valueAsDate = today;
+    endDateInput.valueAsDate = tomorrow;
+    
+    function updateCost() {
+        const start = new Date(startDateInput.value);
+        const end = new Date(endDateInput.value);
+        let days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        if (days < 1) days = 1;
         document.getElementById('rentalTotal').innerText = '₹' + (days * vehicle.dailyRate);
-    });
+        return days;
+    }
+    
+    startDateInput.addEventListener('change', updateCost);
+    endDateInput.addEventListener('change', updateCost);
+    
+    // Initial cost calculation
+    updateCost();
     
     document.getElementById('rentalForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        const days = updateCost();
+        const totalCost = days * vehicle.dailyRate;
+        const parcelId = window.selectedParcelId || null;
         
         const newVehicle = {
             id: vehicle.rentalId + '-HIRED',
@@ -117,8 +147,20 @@ window.openRentalModal = function(rentalId) {
             rentalId: vehicle.rentalId
         };
         
+        const transaction = {
+            rentalTransactionId: "RNT-" + new Date().toISOString().replace(/\D/g, '').slice(0, 14),
+            vehicleId: vehicle.rentalId,
+            parcelId: parcelId,
+            startDate: startDateInput.value,
+            endDate: endDateInput.value,
+            dailyRate: vehicle.dailyRate,
+            totalCost: totalCost,
+            status: "ACTIVE"
+        };
+        
         window.saveVehicle(newVehicle);
-        window.updateRental(vehicle.rentalId, { availability: 'Hired' });
+        window.updateRental(vehicle.rentalId, { availability: 'Rented' });
+        window.saveRentalTransaction(transaction);
         
         rentalModal.hide();
         
