@@ -205,3 +205,54 @@ function generateDemoData() {
     });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(parcels));
 }
+
+// 4. Vehicle Management Storage (Fleet & Rental)
+const VEHICLES_KEY = 'swiftParcelVehicles';
+
+window.getVehicles = function() {
+    return JSON.parse(localStorage.getItem(VEHICLES_KEY) || '[]');
+};
+
+window.saveVehicle = function(vehicleData) {
+    const vehicles = window.getVehicles();
+    vehicles.push(vehicleData);
+    localStorage.setItem(VEHICLES_KEY, JSON.stringify(vehicles));
+    return true;
+};
+
+window.updateVehicle = function(id, updates) {
+    const vehicles = window.getVehicles();
+    const index = vehicles.findIndex(v => v.id === id);
+    if (index === -1) return false;
+    
+    Object.assign(vehicles[index], updates);
+    localStorage.setItem(VEHICLES_KEY, JSON.stringify(vehicles));
+    return true;
+};
+
+window.deleteVehicle = function(id) {
+    const vehicles = window.getVehicles();
+    const filtered = vehicles.filter(v => v.id !== id);
+    if (filtered.length !== vehicles.length) {
+        localStorage.setItem(VEHICLES_KEY, JSON.stringify(filtered));
+        return true;
+    }
+    return false;
+};
+
+window.generateDemoVehicles = function() {
+    const demoVehicles = [
+        { id: 'V-101', type: 'Van', make: 'Ford Transit', plate: 'SW-101', status: 'Available', owner: 'Owned' },
+        { id: 'V-102', type: 'Van', make: 'Mercedes Sprinter', plate: 'SW-102', status: 'In Delivery', owner: 'Owned', assignedParcel: 'PDS10002' },
+        { id: 'V-103', type: 'Truck', make: 'Isuzu NPR', plate: 'SW-103', status: 'Available', owner: 'Owned' },
+        { id: 'V-104', type: 'Van', make: 'Ford Transit', plate: 'SW-104', status: 'Maintenance', owner: 'Owned' },
+        { id: 'V-105', type: 'Truck', make: 'Hino 195', plate: 'SW-105', status: 'Available', owner: 'Owned' }
+    ];
+    let vehicles = window.getVehicles();
+    if (vehicles.length === 0) {
+        localStorage.setItem(VEHICLES_KEY, JSON.stringify(demoVehicles));
+    }
+};
+
+// Generate demo vehicles automatically for simulation
+window.generateDemoVehicles();

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Rental Service - SwiftParcel</title>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('swiftParcelTheme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark" id="mainNav">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand fw-bold d-flex align-items-center font-outfit" href="../index.html">
+                <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm" style="width: 40px; height: 40px;">
+                    <i class="bi bi-box-seam-fill fs-4"></i>
+                </div>
+                SwiftParcel
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="../index.html">Home</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="tracking.html">Track Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="fleet.html">Fleet Management</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link active fw-medium" href="rental.html">Rent Vehicles</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" role="button"></a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="delivery-assignment.html">Assign Deliveries</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 mb-3 mb-lg-0">
+                        <a class="btn btn-outline-light fw-semibold px-4 rounded-pill btn-hover-elevate" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Rental Content -->
+    <div class="container-fluid px-lg-5 py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold font-outfit text-dark">Friend's Vehicle Rental Service</h2>
+            <p class="text-muted lead mx-auto" style="max-width: 600px;">Not enough vehicles in your fleet? Hire extra capacity instantly to ensure all your parcels are delivered on time.</p>
+        </div>
+
+        <div id="rentalCatalog">
+            <!-- Populated by rental.js -->
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/rental.js"></script>
+</body>
+</html>
