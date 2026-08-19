@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const allParcels = getParcels();
         
         updateSummaryCards(allParcels);
+        calculateFleetMetrics();
         calculateAnalytics(allParcels);
         renderRecentActivity(allParcels);
         applyFiltersAndRender();
@@ -141,6 +142,68 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('statTransit').textContent = transit;
         document.getElementById('statDelivered').textContent = delivered;
         document.getElementById('statCancelled').textContent = cancelled;
+    }
+
+    /**
+     * Calculate and update Fleet Overview and Utilization
+     */
+    function calculateFleetMetrics() {
+        if (typeof window.getVehicles !== 'function') return;
+        
+        const vehicles = window.getVehicles() || [];
+        const rentals = window.getRentals ? window.getRentals() : [];
+        
+        let total = vehicles.length;
+        let available = 0;
+        let inDelivery = 0;
+        let rented = 0;
+        let maintenance = 0;
+        
+        let companyTotal = 0;
+        let companyActive = 0;
+        let rentalTotal = rentals.length;
+        let rentalActive = 0;
+        
+        vehicles.forEach(v => {
+            const status = (v.status || '').toUpperCase();
+            
+            if (status === 'AVAILABLE') available++;
+            else if (status === 'IN_DELIVERY') inDelivery++;
+            else if (status === 'MAINTENANCE') maintenance++;
+            
+            if (v.ownership === 'Company') {
+                companyTotal++;
+                if (status === 'IN_DELIVERY') companyActive++;
+            } else if (v.ownership === 'Rented') {
+                rented++;
+                rentalActive++; // Since it's in the fleet, it's an active rental
+            }
+        });
+        
+        // Update DOM elements for Overview if they exist
+        const eTotal = document.getElementById('statTotalVehicles');
+        if (eTotal) {
+            eTotal.textContent = total;
+            document.getElementById('statAvailableVehicles').textContent = available;
+            document.getElementById('statVehiclesInDelivery').textContent = inDelivery;
+            document.getElementById('statRentedVehicles').textContent = rented;
+            document.getElementById('statMaintenanceVehicles').textContent = maintenance;
+        }
+        
+        // Update DOM elements for Utilization if they exist
+        const eComp = document.getElementById('pctCompanyFleet');
+        if (eComp) {
+            const pctComp = companyTotal > 0 ? Math.round((companyActive / companyTotal) * 100) : 0;
+            const pctRent = rentalTotal > 0 ? Math.round((rentalActive / rentalTotal) * 100) : 0;
+            
+            eComp.textContent = pctComp + '%';
+            document.getElementById('barCompanyFleet').style.width = pctComp + '%';
+            document.getElementById('subCompanyFleet').textContent = `${companyActive} active out of ${companyTotal}`;
+            
+            document.getElementById('pctRentalFleet').textContent = pctRent + '%';
+            document.getElementById('barRentalFleet').style.width = pctRent + '%';
+            document.getElementById('subRentalFleet').textContent = `${rentalActive} active out of ${rentalTotal}`;
+        }
     }
 
     /**

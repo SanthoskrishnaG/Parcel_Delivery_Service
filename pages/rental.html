@@ -41,7 +41,7 @@
                     <li class="nav-item mx-1"><a class="nav-link active fw-medium" href="rental.html">Rent Vehicles</a></li>
                     <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" role="button"></a></li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="delivery-assignment.html">Assign Deliveries</a>
+                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="delivery-operations.html">Delivery Operations</a>
                     </li>
                     <li class="nav-item ms-lg-2 mt-2 mt-lg-0 mb-3 mb-lg-0">
                         <a class="btn btn-outline-light fw-semibold px-4 rounded-pill btn-hover-elevate" href="dashboard.html">Dashboard</a>
@@ -134,6 +134,34 @@
                             </tr>
                         </thead>
                         <tbody id="activeRentalsBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rental History Table -->
+        <div class="card border-0 shadow-sm rounded-4 mb-5 bg-white">
+            <div class="card-header bg-white border-bottom p-4">
+                <h5 class="fw-bold font-outfit text-dark mb-0">Rental History</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="rentalHistoryTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Rental ID</th>
+                                <th>Vehicle</th>
+                                <th>Parcel</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Duration</th>
+                                <th>Cost</th>
+                                <th class="pe-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rentalHistoryBody">
                             <!-- Populated by JS -->
                         </tbody>
                     </table>

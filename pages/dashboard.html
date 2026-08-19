@@ -237,6 +237,73 @@
             </div>
         </div>
 
+        <!-- Fleet Integration section -->
+        <div class="row g-4 mb-4">
+            <!-- Fleet Overview -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold font-outfit text-dark mb-0">Fleet Overview</h5>
+                    </div>
+                    <div class="card-body p-4 pt-3">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-0 mb-1">
+                                <span class="text-muted fw-medium"><i class="bi bi-truck me-2"></i>Total Vehicles</span>
+                                <span class="badge bg-secondary rounded-pill fs-6" id="statTotalVehicles">0</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-0 mb-1">
+                                <span class="text-muted fw-medium"><i class="bi bi-check-circle me-2"></i>Available Vehicles</span>
+                                <span class="badge bg-success rounded-pill fs-6" id="statAvailableVehicles">0</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-0 mb-1">
+                                <span class="text-muted fw-medium"><i class="bi bi-box-seam me-2"></i>Vehicles in Delivery</span>
+                                <span class="badge bg-primary rounded-pill fs-6" id="statVehiclesInDelivery">0</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-0 mb-1">
+                                <span class="text-muted fw-medium"><i class="bi bi-building-add me-2"></i>Rented Vehicles</span>
+                                <span class="badge bg-info rounded-pill fs-6" id="statRentedVehicles">0</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-0 mb-1">
+                                <span class="text-muted fw-medium"><i class="bi bi-wrench me-2"></i>Vehicles in Maintenance</span>
+                                <span class="badge bg-warning text-dark rounded-pill fs-6" id="statMaintenanceVehicles">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle Utilization -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold font-outfit text-dark mb-0">Vehicle Utilization</h5>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-center">
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-dark fw-bold"><i class="bi bi-building me-2"></i>Company Fleet</span>
+                                <span class="text-dark fw-bold" id="pctCompanyFleet">0%</span>
+                            </div>
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" id="barCompanyFleet" style="width: 0%"></div>
+                            </div>
+                            <small class="text-muted mt-1 d-block" id="subCompanyFleet">0 active out of 0</small>
+                        </div>
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-dark fw-bold"><i class="bi bi-shop me-2"></i>Rental Fleet</span>
+                                <span class="text-dark fw-bold" id="pctRentalFleet">0%</span>
+                            </div>
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="barRentalFleet" style="width: 0%"></div>
+                            </div>
+                            <small class="text-muted mt-1 d-block" id="subRentalFleet">0 active out of 0</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Recent Activity -->
         <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
             <div class="card-header bg-white border-bottom p-4">
