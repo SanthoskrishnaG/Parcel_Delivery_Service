@@ -117,7 +117,7 @@ window.openRentalModal = function(index) {
         
         // Redirect to fleet dashboard
         setTimeout(() => {
-            window.location.href = 'fleet.html';
+            window.location.href = 'vehicles.html';
         }, 1500);
     });
     

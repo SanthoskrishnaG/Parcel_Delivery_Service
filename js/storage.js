@@ -242,11 +242,11 @@ window.deleteVehicle = function(id) {
 
 window.generateDemoVehicles = function() {
     const demoVehicles = [
-        { id: 'V-101', type: 'Van', make: 'Ford Transit', plate: 'SW-101', status: 'Available', owner: 'Owned' },
-        { id: 'V-102', type: 'Van', make: 'Mercedes Sprinter', plate: 'SW-102', status: 'In Delivery', owner: 'Owned', assignedParcel: 'PDS10002' },
-        { id: 'V-103', type: 'Truck', make: 'Isuzu NPR', plate: 'SW-103', status: 'Available', owner: 'Owned' },
-        { id: 'V-104', type: 'Van', make: 'Ford Transit', plate: 'SW-104', status: 'Maintenance', owner: 'Owned' },
-        { id: 'V-105', type: 'Truck', make: 'Hino 195', plate: 'SW-105', status: 'Available', owner: 'Owned' }
+        { id: 'VAN-001', type: 'Van', make: 'Ford Transit', plate: 'SW-101', status: 'Available', owner: 'Owned' },
+        { id: 'VAN-002', type: 'Van', make: 'Mercedes Sprinter', plate: 'SW-102', status: 'In Delivery', owner: 'Owned', assignedParcel: 'PDS10002' },
+        { id: 'BIKE-001', type: 'Bike', make: 'Honda CB', plate: 'SW-B01', status: 'Available', owner: 'Owned' },
+        { id: 'BIKE-002', type: 'Bike', make: 'Yamaha FZ', plate: 'SW-B02', status: 'Maintenance', owner: 'Owned' },
+        { id: 'TRUCK-001', type: 'Truck', make: 'Isuzu NPR', plate: 'SW-T01', status: 'Available', owner: 'Owned' }
     ];
     let vehicles = window.getVehicles();
     if (vehicles.length === 0) {

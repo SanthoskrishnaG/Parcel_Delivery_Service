@@ -83,11 +83,13 @@ function updateFleetStats(vehicles) {
     const available = vehicles.filter(v => v.status === 'Available').length;
     const inDelivery = vehicles.filter(v => v.status === 'In Delivery').length;
     const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
+    const rented = vehicles.filter(v => v.owner === 'Rented').length;
     
     if(document.getElementById('statTotalVehicles')) document.getElementById('statTotalVehicles').innerText = total;
     if(document.getElementById('statAvailable')) document.getElementById('statAvailable').innerText = available;
     if(document.getElementById('statInDelivery')) document.getElementById('statInDelivery').innerText = inDelivery;
     if(document.getElementById('statMaintenance')) document.getElementById('statMaintenance').innerText = maintenance;
+    if(document.getElementById('statRented')) document.getElementById('statRented').innerText = rented;
 }
 
 window.sendToMaintenance = function(id) {
