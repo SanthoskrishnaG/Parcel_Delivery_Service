@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
                             <li><a class="dropdown-item py-2 action-view" href="#" data-id="${id}"><i class="bi bi-eye text-primary me-2"></i> View</a></li>
                             <li><a class="dropdown-item py-2" href="tracking.html" onclick="sessionStorage.setItem('quickTrackQuery', '${id}')"><i class="bi bi-geo-alt text-info me-2"></i> Track</a></li>
+                            <li><a class="dropdown-item py-2 action-advance fw-medium text-success" href="#" data-id="${id}"><i class="bi bi-arrow-right-circle text-success me-2"></i> Advance Status</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item py-2 action-edit" href="#" data-id="${id}"><i class="bi bi-pencil text-warning me-2"></i> Edit Status</a></li>
                             <li><a class="dropdown-item py-2 action-print" href="#" data-id="${id}"><i class="bi bi-printer text-secondary me-2"></i> Print</a></li>
@@ -287,6 +288,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 
                 viewModal.show();
+            });
+        });
+
+        // Advance Status Action
+        document.querySelectorAll('.action-advance').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const p = getParcelById(id);
+                if (!p) return;
+
+                const statuses = ['Booked', 'Picked Up', 'Processing', 'In Transit', 'Out for Delivery', 'Delivered'];
+                const currentStatus = p.status || 'Booked';
+                
+                let index = statuses.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
+                if (index >= 0 && index < statuses.length - 1) {
+                    index++;
+                    if (updateParcel(id, { status: statuses[index] })) {
+                        loadDashboard(); // Refresh UI instantly
+                    }
+                } else if (index === statuses.length - 1) {
+                    // It is already delivered, do nothing or visual indication
+                } else {
+                    // Fallback if status was weird
+                    if (updateParcel(id, { status: 'Picked Up' })) {
+                        loadDashboard();
+                    }
+                }
             });
         });
 
