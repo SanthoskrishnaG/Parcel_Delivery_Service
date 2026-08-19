@@ -51,11 +51,102 @@
         </div>
     </nav>
 
-    <!-- Rental Content -->
+    <!-- Rental Dashboard Content -->
     <div class="container-fluid px-lg-5 py-5">
         <div class="text-center mb-5">
-            <h2 class="display-6 fw-bold font-outfit text-dark">Friend's Vehicle Rental Service</h2>
-            <p class="text-muted lead mx-auto" style="max-width: 600px;">Not enough vehicles in your fleet? Hire extra capacity instantly to ensure all your parcels are delivered on time.</p>
+            <h2 class="display-6 fw-bold font-outfit text-dark">Rental Management Dashboard</h2>
+            <p class="text-muted lead mx-auto" style="max-width: 600px;">Manage your hired vehicles and monitor rental expenses.</p>
+        </div>
+
+        <!-- Cost Analytics Summary -->
+        <div class="row g-4 mb-5" id="rentalAnalytics">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-4 d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                            <i class="bi bi-car-front fs-3"></i>
+                        </div>
+                        <div>
+                            <p class="text-muted small mb-0 fw-medium">Total Rental Vehicles</p>
+                            <h3 class="fw-bold mb-0 text-dark" id="statTotalRentals">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-4 d-flex align-items-center">
+                        <div class="bg-warning bg-opacity-10 text-warning rounded-circle p-3 me-3">
+                            <i class="bi bi-clock-history fs-3"></i>
+                        </div>
+                        <div>
+                            <p class="text-muted small mb-0 fw-medium">Active Rentals</p>
+                            <h3 class="fw-bold mb-0 text-dark" id="statActiveRentals">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-4 d-flex align-items-center">
+                        <div class="bg-danger bg-opacity-10 text-danger rounded-circle p-3 me-3">
+                            <i class="bi bi-cash-stack fs-3"></i>
+                        </div>
+                        <div>
+                            <p class="text-muted small mb-0 fw-medium">Rental Cost Today</p>
+                            <h3 class="fw-bold mb-0 text-dark" id="statCostToday">₹0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-4 d-flex align-items-center">
+                        <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 me-3">
+                            <i class="bi bi-wallet2 fs-3"></i>
+                        </div>
+                        <div>
+                            <p class="text-muted small mb-0 fw-medium">Total Rental Cost</p>
+                            <h3 class="fw-bold mb-0 text-dark" id="statCostTotal">₹0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Rentals Table -->
+        <div class="card border-0 shadow-sm rounded-4 mb-5 bg-white">
+            <div class="card-header bg-white border-bottom p-4">
+                <h5 class="fw-bold font-outfit text-dark mb-0">Active Rentals</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="activeRentalsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Rental ID</th>
+                                <th>Vehicle</th>
+                                <th>Parcel</th>
+                                <th>Duration</th>
+                                <th>Cost</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activeRentalsBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- Friend's Vehicle Rental Service (Catalog) -->
+        <div class="text-center mb-5">
+            <h3 class="fw-bold font-outfit text-dark">Friend's Vehicle Rental Service</h3>
+            <p class="text-muted mx-auto" style="max-width: 600px;">Need more capacity? Hire extra vehicles instantly from our partner marketplace.</p>
         </div>
 
         <div id="rentalCatalog">

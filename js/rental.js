@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rentalCatalog) {
         renderRentalCatalog();
     }
+    const rentalAnalytics = document.getElementById('rentalAnalytics');
+    if (rentalAnalytics) {
+        renderRentalDashboard();
+    }
 });
 
 function renderRentalCatalog() {
@@ -166,11 +170,124 @@ window.openRentalModal = function(rentalId) {
         
         if(window.showNotification) window.showNotification('Vehicle Hired', `${vehicle.rentalId} successfully hired and added to Fleet.`, 'success');
         
-        // Redirect to fleet dashboard
+        // Redirect to rental dashboard if we are already there, or fleet
         setTimeout(() => {
-            window.location.href = 'vehicles.html';
+            if (document.getElementById('rentalAnalytics')) {
+                window.location.reload();
+            } else {
+                window.location.href = 'vehicles.html';
+            }
         }, 1500);
     });
     
     rentalModal.show();
+};
+
+function renderRentalDashboard() {
+    const transactions = window.getRentalTransactions() || [];
+    const activeRentals = transactions.filter(t => t.status === 'ACTIVE');
+    
+    // Analytics
+    document.getElementById('statTotalRentals').textContent = window.getRentals().length;
+    document.getElementById('statActiveRentals').textContent = activeRentals.length;
+    
+    const todayStr = new Date().toISOString().split('T')[0];
+    let costToday = 0;
+    let costTotal = 0;
+    
+    transactions.forEach(t => {
+        if (t.status === 'ACTIVE') {
+            const start = new Date(t.startDate);
+            const end = new Date(t.endDate);
+            const today = new Date(todayStr);
+            if (today >= start && today <= end) {
+                costToday += t.dailyRate;
+            }
+        }
+        costTotal += t.totalCost;
+    });
+    
+    document.getElementById('statCostToday').textContent = '₹' + costToday.toLocaleString();
+    document.getElementById('statCostTotal').textContent = '₹' + costTotal.toLocaleString();
+    
+    // Active Rentals Table
+    const tbody = document.getElementById('activeRentalsBody');
+    if (!tbody) return;
+    
+    if (activeRentals.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center text-muted py-4">
+                    <i class="bi bi-inbox fs-4 mb-2 d-block"></i>
+                    No active rentals at the moment.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    let html = '';
+    activeRentals.forEach(t => {
+        const vehicle = window.getRentals().find(r => r.rentalId === t.vehicleId);
+        const vehicleType = vehicle ? vehicle.type : 'Unknown';
+        
+        const start = new Date(t.startDate);
+        const end = new Date(t.endDate);
+        let days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        if (days < 1) days = 1;
+        
+        html += `
+            <tr>
+                <td class="ps-4 fw-medium text-dark">${t.rentalTransactionId}</td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-light rounded p-2 me-2 text-primary">
+                            <i class="bi bi-car-front"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0 fw-semibold text-dark">${t.vehicleId}</p>
+                            <p class="small text-muted mb-0">${vehicleType}</p>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25">${t.parcelId || 'Unassigned'}</span></td>
+                <td>${days} Days<br><small class="text-muted">${t.startDate} to ${t.endDate}</small></td>
+                <td class="fw-medium">₹${t.totalCost.toLocaleString()}</td>
+                <td><span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1">Active</span></td>
+                <td class="text-end pe-4">
+                    <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="returnRentalVehicle('${t.rentalTransactionId}')">Return</button>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+}
+
+window.returnRentalVehicle = function(transactionId) {
+    const transactions = window.getRentalTransactions();
+    const index = transactions.findIndex(t => t.rentalTransactionId === transactionId);
+    
+    if (index === -1) return;
+    
+    const transaction = transactions[index];
+    
+    // Update Transaction
+    transaction.status = 'COMPLETED';
+    localStorage.setItem('swiftParcelRentalTransactions', JSON.stringify(transactions));
+    
+    // Update Rental Inventory Status
+    window.updateRental(transaction.vehicleId, { availability: 'Available' });
+    
+    // Remove from Company Temporary Fleet
+    const vehicles = window.getVehicles();
+    const fleetVehicleIndex = vehicles.findIndex(v => v.rentalId === transaction.vehicleId && v.ownership === 'Rented');
+    if (fleetVehicleIndex !== -1) {
+        vehicles.splice(fleetVehicleIndex, 1);
+        localStorage.setItem('swiftParcelVehicles', JSON.stringify(vehicles));
+    }
+    
+    if(window.showNotification) window.showNotification('Vehicle Returned', `${transaction.vehicleId} has been successfully returned.`, 'success');
+    
+    window.location.reload();
 };

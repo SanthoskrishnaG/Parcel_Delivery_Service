@@ -463,7 +463,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 let index = statuses.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
                 if (index >= 0 && index < statuses.length - 1) {
                     index++;
-                    if (updateParcel(id, { status: statuses[index] })) {
+                    const newStatus = statuses[index];
+                    
+                    if (updateParcel(id, { status: newStatus })) {
+                        if (newStatus === 'Delivered' && p.assignedVehicleId) {
+                            const vehicles = window.getVehicles();
+                            const v = vehicles.find(vec => vec.id === p.assignedVehicleId);
+                            if (v) {
+                                if (v.ownership === 'Company') {
+                                    window.updateVehicle(v.id, { status: 'AVAILABLE', currentParcel: null });
+                                } else if (v.ownership === 'Rented') {
+                                    window.updateVehicle(v.id, { status: 'RETURN_PENDING', currentParcel: null });
+                                    
+                                    // Get Transaction ID if possible
+                                    let rentalIdStr = v.rentalId || v.id;
+                                    const transactions = window.getRentalTransactions ? window.getRentalTransactions() : [];
+                                    const t = transactions.find(tr => tr.vehicleId === v.rentalId && tr.status === 'ACTIVE');
+                                    const tId = t ? t.rentalTransactionId : rentalIdStr;
+                                    
+                                    // Show Delivery Completed Modal
+                                    const modalHtml = `
+                                        <div class="modal fade" id="deliveryCompleteModal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border-0 shadow-lg rounded-4 text-center">
+                                                    <div class="modal-body p-5">
+                                                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                                                        <h4 class="fw-bold mt-4 mb-3">Delivery Completed</h4>
+                                                        <p class="text-muted mb-4">This vehicle was rented for the delivery.</p>
+                                                        
+                                                        <div class="bg-light p-3 rounded-3 mb-4 text-start border">
+                                                            <p class="small text-muted mb-1">Rental:</p>
+                                                            <p class="fw-bold mb-0">${tId}</p>
+                                                        </div>
+                                                        
+                                                        <a href="rental.html" class="btn btn-primary w-100 rounded-pill fw-semibold py-2">Return Vehicle</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    const oldModal = document.getElementById('deliveryCompleteModal');
+                                    if (oldModal) oldModal.remove();
+                                    document.body.insertAdjacentHTML('beforeend', modalHtml);
+                                    new bootstrap.Modal(document.getElementById('deliveryCompleteModal')).show();
+                                }
+                            }
+                        }
+                        
                         loadDashboard(); // Refresh UI instantly
                     }
                 } else if (index === statuses.length - 1) {
