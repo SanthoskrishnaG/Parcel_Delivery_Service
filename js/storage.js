@@ -255,5 +255,39 @@ window.generateDemoVehicles = function() {
     }
 };
 
+// 5. Rental Service Storage
+const RENTALS_KEY = 'swiftParcelRentals';
+
+window.getRentals = function() {
+    return JSON.parse(localStorage.getItem(RENTALS_KEY) || '[]');
+};
+
+window.updateRental = function(rentalId, updates) {
+    const rentals = window.getRentals();
+    const index = rentals.findIndex(r => r.rentalId === rentalId);
+    if (index === -1) return false;
+    
+    Object.assign(rentals[index], updates);
+    localStorage.setItem(RENTALS_KEY, JSON.stringify(rentals));
+    return true;
+};
+
+window.generateDemoRentals = function() {
+    const demoRentals = [
+        { rentalId: 'RENT-001', registrationNumber: 'TN-38-RENT-001', type: 'Van', capacity: 750, dailyRate: 1500, availability: 'Available', rentalCompany: "Friend's Vehicle Rental Service" },
+        { rentalId: 'RENT-002', registrationNumber: 'TN-38-RENT-002', type: 'Mini Truck', capacity: 1500, dailyRate: 2500, availability: 'Available', rentalCompany: "Friend's Vehicle Rental Service" },
+        { rentalId: 'RENT-003', registrationNumber: 'TN-38-RENT-003', type: 'Truck', capacity: 5000, dailyRate: 4000, availability: 'Available', rentalCompany: "Friend's Vehicle Rental Service" },
+        { rentalId: 'RENT-004', registrationNumber: 'TN-38-RENT-004', type: 'Bike', capacity: 20, dailyRate: 500, availability: 'Available', rentalCompany: "Friend's Vehicle Rental Service" }
+    ];
+    let rentals = window.getRentals();
+    if (rentals.length === 0) {
+        localStorage.setItem(RENTALS_KEY, JSON.stringify(demoRentals));
+    }
+};
+
+// Initialize demo data on load
+window.generateDemoVehicles();
+window.generateDemoRentals();
+
 // Generate demo vehicles automatically for simulation
 window.generateDemoVehicles();

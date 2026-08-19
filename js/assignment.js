@@ -110,13 +110,36 @@ function renderAssignmentPanel() {
     
     if (validVehicles === 0) {
         panel.innerHTML = `
-            <div class="text-center text-danger p-4">
-                <i class="bi bi-x-circle fs-1 mb-2"></i>
-                <h5>Cannot Assign Parcel</h5>
-                <p>No available vehicles have enough capacity (${pWeight}kg) for this parcel.</p>
+            <div class="card border-danger border-opacity-25 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-5 text-center">
+                    <i class="bi bi-exclamation-triangle-fill text-danger fs-1 mb-3 d-block"></i>
+                    <h4 class="fw-bold text-danger mb-3">Vehicle Shortage</h4>
+                    <p class="text-muted mb-4 px-md-4">There are currently no available company vehicles<br>with sufficient capacity for this delivery.</p>
+                    
+                    <div class="row justify-content-center mb-4 text-start">
+                        <div class="col-sm-8 col-md-6">
+                            <div class="bg-light p-3 rounded-3 border">
+                                <p class="small text-muted mb-1">Parcel Weight:</p>
+                                <p class="fw-bold mb-2">${pWeight} kg</p>
+                                
+                                <p class="small text-muted mb-1 text-primary">Required Capacity:</p>
+                                <p class="fw-bold mb-2 text-primary">${pWeight} kg</p>
+                                
+                                <p class="small text-muted mb-1">Available Company Vehicles:</p>
+                                <p class="fw-bold mb-0">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="fw-semibold mb-3">Would you like to hire a vehicle?</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-outline-secondary rounded-pill px-4" onclick="document.getElementById('assignmentPanel').innerHTML = ''">Cancel</button>
+                        <a href="rental.html" class="btn btn-primary rounded-pill px-4 shadow-sm">Check Rental Vehicles</a>
+                    </div>
+                </div>
             </div>
         `;
-        shortageAlert.classList.remove('d-none');
+        shortageAlert.classList.add('d-none'); // Hide the old generic alert since the panel is now inline
         return;
     }
     
