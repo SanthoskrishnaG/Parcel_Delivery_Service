@@ -66,3 +66,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const quickTrackBtn = document.getElementById('quickTrackBtn');
+    const quickTrackInput = document.getElementById('quickTrackInput');
+    if (quickTrackBtn && quickTrackInput) {
+        quickTrackBtn.addEventListener('click', () => {
+            const val = quickTrackInput.value.trim();
+            if (val) {
+                localStorage.setItem('swiftParcelQuickTrack', val);
+            }
+            window.location.href = 'pages/tracking.html';
+        });
+    }
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message sent successfully! We will get back to you soon.');
+            contactForm.reset();
+        });
+    }
+});

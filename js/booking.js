@@ -253,3 +253,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const newBookingBtn = document.getElementById('newBookingBtn');
+    if (newBookingBtn) {
+        newBookingBtn.addEventListener('click', () => {
+            window.location.reload();
+        });
+    }
+    const printReceiptBtn = document.getElementById('printReceiptBtn');
+    if (printReceiptBtn) {
+        printReceiptBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+});

@@ -67,7 +67,10 @@
                 <h2 class="fw-bold font-outfit text-dark mb-1">My Dashboard</h2>
                 <p class="text-muted mb-0">Manage and track all your parcel deliveries</p>
             </div>
-            <div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary rounded-pill px-4 fw-semibold shadow-sm" id="generateDemoBtn">
+                    <i class="bi bi-magic me-2"></i>Load Demo Data
+                </button>
                 <a href="booking.html" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm"><i class="bi bi-plus-lg me-2"></i>New Booking</a>
             </div>
         </div>
@@ -333,7 +336,7 @@
                     <p class="text-muted mb-4">You haven't booked any parcels yet, or no results match your filters.</p>
                     <a href="booking.html" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm mb-2">Book Your First Parcel</a>
                     <br>
-                    <button class="btn btn-outline-secondary rounded-pill px-4 mt-2" onclick="document.getElementById('searchParcels').value=''; document.getElementById('filterStatus').value='all'; document.getElementById('filterDeliveryType').value='all'; document.getElementById('filterDate').value='all'; document.getElementById('filterPrice').value='all'; document.getElementById('sortParcels').value='newest'; document.dispatchEvent(new Event('input'));">Clear Filters</button>
+                    <button class="btn btn-outline-secondary rounded-pill px-4 mt-2" id="clearFiltersBtn">Clear Filters</button>
                 </div>
             </div>
         </div>

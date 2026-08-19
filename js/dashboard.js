@@ -618,3 +618,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Init
     loadDashboard();
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+            document.getElementById('searchParcels').value = '';
+            document.getElementById('filterStatus').value = 'all';
+            document.getElementById('filterDeliveryType').value = 'all';
+            document.getElementById('filterDate').value = 'all';
+            document.getElementById('filterPrice').value = 'all';
+            document.getElementById('sortParcels').value = 'newest';
+            const event = new Event('input');
+            document.getElementById('searchParcels').dispatchEvent(event);
+        });
+    }
+});
+
+    const generateDemoBtn = document.getElementById('generateDemoBtn');
+    if (generateDemoBtn) {
+        generateDemoBtn.addEventListener('click', () => {
+            if (confirm('This will load demo parcels. Proceed?')) {
+                generateDemoData();
+                window.location.reload();
+            }
+        });
+    }
