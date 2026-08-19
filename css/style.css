@@ -4,15 +4,15 @@
 */
 
 :root {
-    /* Custom Color Palette */
-    --primary-color: #4361ee;
-    --primary-dark: #3a0ca3;
-    --primary-light: #4cc9f0;
-    --secondary-color: #f72585;
-    --dark-bg: #0f172a;
-    --light-bg: #f8fafc;
-    --text-main: #334155;
-    --text-muted: #64748b;
+    /* Custom Color Palette (Cheetah Theme) */
+    --primary-color: #f97316; /* Orange */
+    --primary-dark: #ea580c; /* Deep Orange */
+    --primary-light: #fdba74; /* Light Orange */
+    --secondary-color: #facc15; /* Cheetah Gold/Amber */
+    --dark-bg: #1c1917; /* Warm Dark */
+    --light-bg: #fafaf9; /* Warm Light */
+    --text-main: #292524;
+    --text-muted: #78716c;
     --white: #ffffff;
     
     /* Font Families */
