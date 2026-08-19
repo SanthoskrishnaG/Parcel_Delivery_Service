@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SwiftParcel</title>
+    <!-- Dark Mode Init -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('swiftParcelTheme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center font-outfit" href="../index.html">
+                <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm" style="width: 40px; height: 40px;">
+                    <i class="bi bi-box-seam-fill fs-4"></i>
+                </div>
+                SwiftParcel
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="../index.html">Home</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="services.html">Services</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="tracking.html">Track Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="booking.html">Book Parcel</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link active fw-medium" href="about.html">About</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="contact.html">Contact</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link fw-medium" href="#" id="darkModeToggle" title="Toggle Dark Mode"></a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-primary shadow-sm fw-semibold px-4 rounded-pill btn-hover-elevate" href="booking.html">Book a Delivery</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 mb-3 mb-lg-0">
+                        <a class="btn btn-outline-light fw-semibold px-4 rounded-pill btn-hover-elevate" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-5 position-relative overflow-hidden">
+        <div class="hero-bg-shape position-absolute"></div>
+        <div class="container py-5 position-relative z-1">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold font-outfit mb-3 animate-fade-in-up">About SwiftParcel</h1>
+                    <p class="lead opacity-75 mb-0 animate-fade-in-up" style="animation-delay: 0.1s;">Learn about our mission to revolutionize global delivery through speed and reliability.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5 mt-4">
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-6 animate-fade-in-left">
+                <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=1000" alt="About Us" class="img-fluid rounded-4 shadow-lg">
+            </div>
+            <div class="col-lg-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-2">Our Story</h6>
+                <h2 class="font-outfit fw-bold mb-4">Delivering Promises Since 2026</h2>
+                <p class="text-muted mb-4 lead">SwiftParcel was founded with a single goal: to make shipping simple, fast, and transparent. We believe that every parcel carries a promise, and we are committed to fulfilling that promise.</p>
+                <p class="text-muted mb-4">We leverage cutting edge logistics networks and a modern fleet to ensure your packages get from point A to point B securely. Whether it's a small document or a large commercial shipment, we treat every item with the utmost care.</p>
+                
+                <div class="row g-4 mt-2">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                                <i class="bi bi-bullseye fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Our Mission</h5>
+                                <p class="text-muted small mb-0">To connect the world through reliable delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                                <i class="bi bi-eye fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Our Vision</h5>
+                                <p class="text-muted small mb-0">Becoming the global standard for logistics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Core Values -->
+        <div class="row mt-5 pt-4 text-center">
+            <div class="col-12 mb-5">
+                <h2 class="font-outfit fw-bold">Our Core Values</h2>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4 transition-all" style="width: 70px; height: 70px;">
+                        <i class="bi bi-shield-check fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Trust & Security</h5>
+                    <p class="text-muted small mb-0">Your parcels are handled with the highest level of security and accountability at every single step.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4 transition-all" style="width: 70px; height: 70px;">
+                        <i class="bi bi-lightning-charge fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Speed & Efficiency</h5>
+                    <p class="text-muted small mb-0">We optimize routes and processes to ensure lightning-fast delivery times without compromising quality.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4 transition-all" style="width: 70px; height: 70px;">
+                        <i class="bi bi-heart fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Customer First</h5>
+                    <p class="text-muted small mb-0">We believe in transparent communication, 24/7 support, and putting your needs at the forefront.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4 footer-section mt-5 border-top border-secondary border-opacity-25">
+        <div class="container pt-4">
+            <div class="row gy-4">
+                <div class="col-lg-4 pe-lg-5">
+                    <a class="navbar-brand fw-bold d-flex align-items-center text-white mb-4 fs-3 font-outfit" href="../index.html">
+                        <div class="logo-icon me-2 d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-box-seam-fill fs-5"></i>
+                        </div>
+                        SwiftParcel
+                    </a>
+                    <p class="text-muted mb-4 pe-lg-4">Delivering happiness to your doorstep. The most reliable and efficient parcel delivery service nationwide with a global reach.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="../index.html" class="text-muted text-decoration-none hover-text-primary transition-all">Home</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-muted text-decoration-none hover-text-primary transition-all">About Us</a></li>
+                        <li class="mb-2"><a href="services.html" class="text-muted text-decoration-none hover-text-primary transition-all">Services</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-muted text-decoration-none hover-text-primary transition-all">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Services</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="booking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Book a Parcel</a></li>
+                        <li class="mb-2"><a href="tracking.html" class="text-muted text-decoration-none hover-text-primary transition-all">Track Parcel</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="fw-bold mb-4 font-outfit text-white">Contact Info</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-3 d-flex align-items-start"><i class="bi bi-geo-alt text-primary me-3 fs-5 mt-1"></i> <span>123 Logistics Avenue, Tech District, NY 10001, USA</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-telephone text-primary me-3 fs-5"></i> <span>+1 (800) 123-4567</span></li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-envelope text-primary me-3 fs-5"></i> <span>support@swiftparcel.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25 mt-5 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0 small">&copy; <span id="currentYear"></span> SwiftParcel. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
