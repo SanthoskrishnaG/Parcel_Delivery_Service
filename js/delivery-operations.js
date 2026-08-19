@@ -64,34 +64,28 @@ function renderOperationsDashboard() {
         
         html += `
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border border-secondary border-opacity-25 shadow-sm rounded-4">
+                <div class="card h-100 border border-secondary border-opacity-25 shadow-sm rounded-4" style="background-color: var(--bg-card) !important;">
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Unassigned</span>
+                            <span class="badge bg-orange text-dark px-3 py-2 rounded-pill"><i class="bi bi-exclamation-triangle-fill me-1"></i> Unassigned</span>
                             <span class="text-muted small">${p.deliveryType || 'Standard'}</span>
                         </div>
-                        <h5 class="fw-bold text-dark mb-1">${p.id || p.parcelId}</h5>
+                        <h5 class="fw-bold text-white mb-1">${p.id || p.parcelId}</h5>
                         <p class="text-muted small mb-3"><i class="bi bi-person me-1"></i>${p.receiverName}</p>
                         
-                        <div class="bg-light p-3 rounded-3 mb-4 mt-auto border">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="small text-muted">Parcel Weight:</span>
-                                <span class="small fw-semibold">${pWeight} kg</span>
+                        <!-- Orange Warning Panel -->
+                        <div class="p-3 rounded-3 mb-4 mt-auto border" style="background-color: rgba(255, 140, 0, 0.1); border-color: rgba(255, 140, 0, 0.5) !important;">
+                            <div class="text-center mb-3">
+                                <h6 class="text-orange fw-bold mb-1">⚠ Fleet Capacity Alert</h6>
+                                <small class="text-muted d-block">Available Vehicles: 0</small>
+                                <small class="text-muted d-block mb-2">Required Capacity: ${pWeight} KG</small>
                             </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="small text-muted">Req. Capacity:</span>
-                                <span class="small fw-bold text-primary">${pWeight} kg</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="small text-muted">Vehicle Status:</span>
-                                <span class="small fw-semibold text-danger">None</span>
+                            <div class="text-center border-top border-orange pt-2" style="border-color: rgba(255, 140, 0, 0.2) !important;">
+                                <small class="text-white d-block mb-2">Recommended Action:<br>Hire a vehicle from Friend's Vehicle Rental Service</small>
+                                <button class="btn btn-outline-light w-100 rounded-pill fw-bold" onclick="routeToAssignment('${p.id || p.parcelId}')">Check Rental Vehicles</button>
                             </div>
                         </div>
                         
-                        <div class="d-grid gap-2 mt-auto">
-                            <button class="btn btn-primary rounded-pill fw-semibold" onclick="routeToAssignment('${p.id || p.parcelId}')">Assign Company Vehicle</button>
-                            <button class="btn btn-outline-primary rounded-pill fw-semibold" onclick="routeToAssignment('${p.id || p.parcelId}')">Find Rental Vehicle</button>
-                        </div>
                     </div>
                 </div>
             </div>

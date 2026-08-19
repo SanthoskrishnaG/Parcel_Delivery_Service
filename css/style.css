@@ -16,6 +16,18 @@
     --text-muted: #888888;
     --success: #20C997;
     
+    /* Bootstrap Variable Overrides */
+    --bs-primary: #FF8C00;
+    --bs-primary-rgb: 255, 140, 0;
+    --bs-danger: #FF8C00;
+    --bs-danger-rgb: 255, 140, 0;
+    --bs-success: #FF8C00;
+    --bs-success-rgb: 255, 140, 0;
+    --bs-info: #FF8C00;
+    --bs-info-rgb: 255, 140, 0;
+    --bs-warning: #FFC107;
+    --bs-warning-rgb: 255, 193, 7;
+    
     /* Font Families */
     --font-sans: 'Inter', sans-serif;
     --font-heading: 'Outfit', sans-serif;
@@ -47,6 +59,27 @@ body {
 
 .bg-orange {
     background-color: var(--primary-orange) !important;
+}
+
+/* Removed hardcoded !important overrides for bg/text colors to allow bg-opacity-10 to work */
+
+.text-muted {
+    color: #B0B0B0 !important; /* Brighter for contrast */
+}
+
+::placeholder {
+    color: #B0B0B0 !important;
+    opacity: 1 !important;
+}
+
+.btn-outline-primary, .btn-outline-danger, .btn-outline-success {
+    border-color: var(--primary-orange) !important;
+    color: var(--text-white) !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-danger:hover, .btn-outline-success:hover {
+    background-color: var(--primary-orange) !important;
+    color: #000 !important;
 }
 
 /* Navbar Customization */
@@ -215,6 +248,9 @@ body {
 }
 
 /* Forms */
+.form-label {
+    color: var(--text-light-gray) !important;
+}
 .form-control, .form-select {
     background-color: var(--bg-secondary);
     border: 1px solid rgba(255,255,255,0.1);

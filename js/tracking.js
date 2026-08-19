@@ -56,13 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (isCompleted && !isActive) {
                 statusClass = 'completed';
-                iconClass = 'bg-success text-white border-success';
+                iconClass = 'bg-orange text-dark border-orange';
             } else if (isActive) {
                 statusClass = 'active';
-                iconClass = 'bg-primary text-white border-primary border-4 shadow';
+                iconClass = 'bg-orange text-dark border-orange border-4 shadow-lg';
             } else {
                 statusClass = 'pending';
-                iconClass = 'bg-white text-muted border-light border-3';
+                iconClass = 'bg-dark text-muted border-secondary border-3';
             }
 
             // Find history entry for this step
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="timeline-icon-wrapper rounded-circle d-flex align-items-center justify-content-center ${iconClass}" style="width: 48px; height: 48px; z-index: 2; flex-shrink: 0;">
                     <i class="bi ${step.icon} fs-5"></i>
                 </div>
-                <div class="timeline-content ms-4 pb-4 w-100">
-                    <h5 class="fw-bold font-outfit mb-1 ${isActive ? 'text-primary' : (isCompleted ? 'text-success' : 'text-muted')}">${step.label}</h5>
+                <div class="timeline-content ms-4 pb-4 w-100 border-start border-2 px-4" style="border-color: ${isCompleted ? '#FF8C00' : '#333'} !important;">
+                    <h5 class="fw-bold font-outfit mb-1 ${isActive ? 'text-orange' : (isCompleted ? 'text-orange' : 'text-muted')}">${step.label}</h5>
                     <p class="text-muted small mb-0">${stepDesc}</p>
                     ${timeText}
                 </div>
